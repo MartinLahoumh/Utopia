@@ -2,7 +2,7 @@
 CSC322 Project
 
 # FRONTEND: Quick Run (As Of Now)
-Assuming you already have node installed, to start the frontend server just run in your terminal inside the src folder <br>
+Assuming you already have node installed, to start the frontend server just run in your terminal inside the src folder (local host port should be 3000) <br>
 ```npm start``` <br>
 Currently, there is no requiremnts.txt file as no dependencies have been installed yet. When there comes a time where at least 5 dependencies have been installed, I will include such a file.
 
