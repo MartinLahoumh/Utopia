@@ -2,29 +2,42 @@ import '../static/css/post-card.css';
 import heart from '../static/images/heart.png';
 import { useState } from "react";
 
-const Comments = (comment)=>{
+const Comments = (comment, setComment)=>{
     if(comment){
         return(
-            <div className='comment-button'>
-                <div className='user-comment-container'>
-                    <input className='user-comment'type='text' placeholder="Add Comment"></input>
+            <>
+                <div className='comment-button-open'>
+                    <div className='user-comment-container'>
+                        <textarea className='user-comment'type='text' placeholder="Add Comment"></textarea>
+                    </div>
+                    <div className='comments'>
+                        <img className='card-pfp-img comment-pfp-img'></img>
+                        <h5 className='comment-body'>What is going on in this image?</h5>
+                    </div>
+                    <div className='comments'>
+                        <img className='card-pfp-img comment-pfp-img'></img>
+                        <h5 className='comment-body'>What is going on in this image?</h5>
+                    </div>
+                    <div className='comments'>
+                        <img className='card-pfp-img comment-pfp-img'></img>
+                        <h5 className='comment-body'>What is going on in this image?</h5>
+                    </div>
                 </div>
-                <div className='comments'>
-                    <img className='card-pfp-img comment-pfp-img'></img>
-                    <h5 className='comment-body'></h5>
+                <div onClick={()=>{console.log("CLICK!");setComment(false);}} className='comment-button'>
+                    ^
                 </div>
-            </div>
+            </>
         )
     }
     return(
-        <>
-            FALSE
-        </>
+        <div onClick={()=>{console.log("CLICK!");setComment(true);}} className='comment-button'>
+            V
+        </div>
     )
 }
 
 const ViewCard = (props)=> {
-    let [commentClick, setCommentClick] = useState(true);
+    let [commentClick, setCommentClick] = useState(false);
   return (
     <>
         <div className='card'>
@@ -50,7 +63,7 @@ const ViewCard = (props)=> {
                 <h3>{props.body}</h3>
             </div>
         </div>
-        {Comments(commentClick)}
+        {Comments(commentClick, setCommentClick)}
     </>
   );
 }

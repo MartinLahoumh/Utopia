@@ -84,23 +84,46 @@
 }
 
 .comment-button{
-    width: 50%; /*7*/
-    height: 20vh; /*1*/
-    background-color: white;
-    border-style: double;
+    width: 7%; /*7 -> 50*/
+    height: 0vh; /*0 -> 20*/
+    background-color: black; /*white*/
+    border-style: solid; /*double*/
     border-color: black;
     border-width: 10px;
     border-radius: 5px;
-    color:black;
+    color:white; /*black*/
     bottom: 15px;
     position: relative;
     transition: 0.3s;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    justify-content: center; /*start*/
+    align-items: center; /*start*/
     cursor: pointer;
+    /*overflow-y: scroll;*/
 }
+
+.comment-button-open{
+    width: 50%; /*7 -> 50*/
+    height: 20vh; /*0 -> 20*/
+    background-color: white; /*white*/
+    border-style: double; /*double*/
+    border-color: black;
+    border-width: 10px;
+    border-radius: 5px;
+    color: black;
+    bottom: 15px;
+    position: relative;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: start; /*start*/
+    align-items: start; /*start*/
+    cursor:default;
+    overflow-y: scroll;
+
+}
+
 
 .user-comment-container{
     width: 100%;
@@ -112,11 +135,18 @@
 }
 
 .user-comment{
-    width: 80%;
-    
+    width: 90%;
+    height: 5vh;
 }
 
-/*.comment-button:hover{
+.comments{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.comment-button:hover{
     height: 3vh;
     transition: 0.3s;
-}*/
+}
