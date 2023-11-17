@@ -1,0 +1,22 @@
+.wrapper {
+    border: solid;
+    border-color: black;
+    width: fit-content;
+    padding: 1%;
+    margin: auto;
+}
+
+.fake-link {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}

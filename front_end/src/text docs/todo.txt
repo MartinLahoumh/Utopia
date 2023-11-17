@@ -1,0 +1,6 @@
+To Do:
+ - Create a toggle for choosing corp/ordinary user (sign up only)
+ - Fix bug: clicking on clear status buttons doesn't work anymore. But the All button does.
+
+Postponed:
+- Forgot password functionality (managing account info)

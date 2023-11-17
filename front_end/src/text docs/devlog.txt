@@ -1,0 +1,15 @@
+11/12/23:
+ - Created placeholder functions for the sign in/sign up buttons
+ - Created email and password states that are updated by typing into the fields, and made the submit button clear fields
+ - Created separate button that summons the login panel or not
+
+
+11/4/23:
+ - Added extra prompts under input fields
+ - Basic styling for input fields, prompts
+ - Added a hasAccount state and dynamically adjusting text based on whether the user has an account or not
+
+11/3/23:
+ - Created SignIn components
+ - Added input fields, buttons
+ - Basic styling for the wrapper
