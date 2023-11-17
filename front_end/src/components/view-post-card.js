@@ -23,16 +23,16 @@ const Comments = (comment, setComment)=>{
                         <h5 className='comment-body'>What is going on in this image?</h5>
                     </div>
                 </div>
-                <div onClick={()=>{console.log("CLICK!");setComment(false);}} className='comment-button'>
+                <button onClick={()=>{console.log("CLICK!");setComment(false);}} className='comment-button'>
                     ^
-                </div>
+                </button>
             </>
         )
     }
     return(
-        <div onClick={()=>{console.log("CLICK!");setComment(true);}} className='comment-button'>
+        <button onClick={()=>{console.log("CLICK!");setComment(true);}} className='comment-button'>
             V
-        </div>
+        </button>
     )
 }
 

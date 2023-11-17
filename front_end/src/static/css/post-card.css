@@ -5,7 +5,7 @@
     border-width: 10px;
     border-radius: 5px;
     border-color: black;
-    box-shadow: 7px 7px;
+    box-shadow: 7px 7px black;
     margin-bottom: 20px;
 }
 
@@ -103,6 +103,26 @@
     /*overflow-y: scroll;*/
 }
 
+.comment-button:active{
+    transition: 0.05s;
+    width: 50%; /*7 -> 50*/
+    height: 20vh; /*0 -> 20*/
+    background-color: white; /*white*/
+    border-style: double; /*double*/
+    border-color: black;
+    border-width: 10px;
+    border-radius: 5px;
+    color: black;
+    bottom: 15px;
+    position: relative;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: start; /*start*/
+    align-items: start; /*start*/
+    cursor:default;
+    overflow-y: scroll;
+}
 .comment-button-open{
     width: 50%; /*7 -> 50*/
     height: 20vh; /*0 -> 20*/
@@ -121,6 +141,8 @@
     align-items: start; /*start*/
     cursor:default;
     overflow-y: scroll;
+    box-shadow: 7px 2px black;
+    border-top-right-radius: 0px;
 
 }
 

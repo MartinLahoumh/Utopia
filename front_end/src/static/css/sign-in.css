@@ -1,0 +1,37 @@
+.wrapper {
+    border-style: double;
+    border-color: black;
+    border-width: 10px;
+    border-radius: 5px;
+    box-shadow: 7px 7px black;
+    width: 60%;
+    padding: 1%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.fake-link {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    width: 100%;
+    overflow: hidden;
+}
+
+input{
+    width: 90%;
+}
