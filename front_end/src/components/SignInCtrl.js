@@ -1,5 +1,8 @@
 import { useState } from "react";
 import SignInHTML from "../presentations/SignInHTML";
+import axios from 'axios';
+import tempPfp from '../static/images/anon-pfp.jpg';
+import {sha256} from 'crypto-hash';
 
 function SignInCtrl() {
 
@@ -8,9 +11,12 @@ function SignInCtrl() {
     //state that determines whether to display a login prompt (if true) or a signup prompt (if false) in the panel
     const [hasAccount, setHasAccount] = useState(true);
     //states that remember what was typed into the email and password field
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
+    let [email, setEmail] = useState("");
+    let [password, setPassword] = useState("");
+    let [pfp, setPfp] = useState(tempPfp);
+    let [pfpView, setPfpView] = useState(tempPfp);
+    let [bio, setBio] = useState("");
+    let [userType, setUserType] = useState("ORDINARY");
     //FUNCTIONS THAT UPDATE STATES**********************************************************************************
 
     //function that toggles the hasAccount state
@@ -35,26 +41,48 @@ function SignInCtrl() {
         setPassword(e.target.value)
     }
 
+    function handleBioChange(e) {
+        setBio(e.target.value)
+    }
+
+    const handlePfpChange = (e)=> {
+        console.log(e.target.files);
+        setPfp(e.target.files[0]);
+        setPfpView(URL.createObjectURL(e.target.files[0]));
+    }
+
+    const handleUserTypeChange = (type)=>{
+        setUserType(type);
+    }
     //FUNCTIONS THAT PROCESS USER ACTIONS**********************************************************************************
 
     //function that signs in once the user presses Sign In
-    function signIn() {
+    const signIn = async (e) =>{
+        e.preventDefault();
         console.log("Sign in"); //placeholder
-        console.log(email, password); //placeholder
-
-        //reset fields after processing
-        setEmail("");
-        setPassword("");
+        const password_hashing = await sha256(password);
+        const submission = {
+            'username':email,
+            'password_hash': password_hashing,
+        }
     }
 
     //function that signs up once the user presses Create Account
-    function signUp() {
+    const signUp = async (e) =>{
+        e.preventDefault();
         console.log("Sign up"); //placeholder
-        console.log(email, password); //placeholder
+        const password_hashing = await sha256(password);
+        const submission = {
+            'username':email,
+            'password': password_hashing,
+        }
 
-        //reset fields after processing
-        setEmail("");
-        setPassword("");
+        try {
+            const response  = await axios.post('http://127.0.0.1:5000/users/signin', btoa(JSON.stringify(submission)));
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     //function that allows the user to reset password once the user presses Forgot Password?
@@ -70,6 +98,10 @@ function SignInCtrl() {
                 signIn={signIn} signUp={signUp}
                 email={email} handleEmailChange={handleEmailChange}
                 password={password} handlePasswordChange={handlePasswordChange}
+                pfp={pfp} handlePfpChange={handlePfpChange}
+                pfpView={pfpView}
+                bio={bio} handleBioChange={handleBioChange}
+                handleUserTypeChange={handleUserTypeChange}
                 processForgotPassword={processForgotPassword}/>
         </>
     );
