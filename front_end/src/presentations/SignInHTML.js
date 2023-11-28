@@ -1,13 +1,10 @@
-import s from "../styles/SignIn.module.css";
-
+import s from "../static/css/sign-in.css"
+import { useState } from "react";
+import tempPfp from '../static/images/anon-pfp.jpg';
 //presentational component for the signing in/up widget
 function SignInHTML(props) {
-
-    //styles
-    const wrapper = s["wrapper"];
-    const fakeLink = s["fake-link"];
-    const inputArea = s["input-area"]
-
+    let [ordClicked, setOrdClick] = useState(true);
+    let [corpClicked, setCorpClick] = useState(false);
     //raw content
     let loginHead = "Log In";
     let signupHead = "Sign Up";
@@ -20,7 +17,6 @@ function SignInHTML(props) {
 
     let loginButton = "Sign In";
     let signupButton = "Create Account";
-
     //display logic
     let heading = props.hasAccount ? loginHead : signupHead;
     let question = props.hasAccount ? loginQuestion : signupQuestion;
@@ -29,30 +25,76 @@ function SignInHTML(props) {
 
     //function logic
     let buttonLogic = props.hasAccount ? props.signIn : props.signUp;
-
+    
+    //document.getElementById('ordinary-btn').style = "";
+    const buttonChange = (e)=>{
+        console.log(e.target.id);
+        if(e.target.id == 'ordinary-btn'){
+            if(!ordClicked){
+                e.target.style = "border-radius: 20px; box-shadow: none; margin-left:3px; margin-top:3px";
+                document.getElementById('corp-btn').style = "";
+                setCorpClick(false);
+                setOrdClick(true);
+                props.handleUserTypeChange("ORDINARY");
+            }
+        }
+        else if(e.target.id == 'corp-btn'){
+            if(!corpClicked){
+                e.target.style = "border-radius: 20px; box-shadow: none; margin-left:3px; margin-top:3px";
+                document.getElementById('ordinary-btn').style = "";
+                setCorpClick(true);
+                setOrdClick(false);
+                props.handleUserTypeChange("CORPORATE");
+            }
+        }
+    }
+    
     //login panel content
     let panel = (
         <>
             {/* The border of login panel */}
-            <div className={wrapper}>
+            <div className='wrapper' >
                 {/* The heading */}
                 <div>
                     <h1>{heading}</h1>
                 </div>
 
                 {/* The input fields */}
-                <div className={inputArea}>
-                    <div>Email: <input value={props.email} onChange={props.handleEmailChange} /> </div>
+                <div className='input-area'>
+                    <label>Username</label>
+                    <input value={props.email} onChange={props.handleEmailChange}/>
                     <br />
-                    <div>Password: <input value={props.password} onChange={props.handlePasswordChange} /> </div>
+                    <label>Password</label>
+                    <input value={props.password} onChange={props.handlePasswordChange} />
+                    {heading == 'Sign Up'?
+                    <>
+                    <br/>
+                    <label>User Type</label>
+                    <div className="user-type-container">
+                        <button value="ORDINARY" onClick={buttonChange} style={{borderRadius:"20px", boxShadow:"none", marginLeft:"3px", marginTop:"3px"}} className="main-button user-button" id='ordinary-btn'>Ordinary</button>
+                        <button value="CORPORATE" onClick={buttonChange} className="main-button user-button" id="corp-btn">Corporate</button>
+                    </div>
+                    <br/>
+                    {/* THIS IS THE PFP ICON, SAVE FOR EDITING YOUR PROFILE
+                    <label>Profile Pic</label>
+                        <input style={{opacity:"0%"}}accept="image/*" onChange={props.handlePfpChange} type="file" name="img" id="img-upload"hidden/>
+                        <label style={{marginBottom:"0px"}} for='img-upload' className="pfp-container">
+                            <img for='img-upload' className="pfp-img" src={props.pfpView}></img>
+                        </label>*/
+                    }
+                    <label>Bio</label>
+                    <textarea value={props.bio} onChange={props.handleBioChange}></textarea>
+                    <br/>
+                    </>
+                    :null}
                 </div>
 
                 {/* The additional prompts */}
                 <div>
                     {question} &#160;
-                    <button className={fakeLink} onClick={props.toggleHasAccount}>{prompt}</button>
+                    <button className='fake-link' onClick={props.toggleHasAccount}>{prompt}</button>
                     <br />
-                    <button className={fakeLink} onClick={props.processForgotPassword}>Forgot password?</button>
+                    <button className='fake-link' onClick={props.processForgotPassword}>Forgot password?</button>
                 </div>
 
                 <br />
@@ -68,8 +110,8 @@ function SignInHTML(props) {
 
     return (
         <>
-            <div>
-                <button onClick={props.toggleShowPanel}>Sign In</button>
+            <div className="main-button-container">
+                <button className="main-button" onClick={props.toggleShowPanel}>Sign In</button>
             </div>
             {props.showPanel ? panel : <></>}
         </>

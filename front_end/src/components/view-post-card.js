@@ -1,7 +1,43 @@
 import '../static/css/post-card.css';
 import heart from '../static/images/heart.png';
+import { useState } from "react";
+
+const Comments = (comment, setComment)=>{
+    if(comment){
+        return(
+            <>
+                <div className='comment-button-open'>
+                    <div className='user-comment-container'>
+                        <textarea className='user-comment'type='text' placeholder="Add Comment"></textarea>
+                    </div>
+                    <div className='comments'>
+                        <img className='card-pfp-img comment-pfp-img'></img>
+                        <h5 className='comment-body'>What is going on in this image?</h5>
+                    </div>
+                    <div className='comments'>
+                        <img className='card-pfp-img comment-pfp-img'></img>
+                        <h5 className='comment-body'>What is going on in this image?</h5>
+                    </div>
+                    <div className='comments'>
+                        <img className='card-pfp-img comment-pfp-img'></img>
+                        <h5 className='comment-body'>What is going on in this image?</h5>
+                    </div>
+                </div>
+                <button onClick={()=>{console.log("CLICK!");setComment(false);}} className='comment-button'>
+                    ^
+                </button>
+            </>
+        )
+    }
+    return(
+        <button onClick={()=>{console.log("CLICK!");setComment(true);}} className='comment-button'>
+            V
+        </button>
+    )
+}
+
 const ViewCard = (props)=> {
-    
+    let [commentClick, setCommentClick] = useState(false);
   return (
     <>
         <div className='card'>
@@ -11,8 +47,14 @@ const ViewCard = (props)=> {
                     <h4 className='card-author'>{props.author}</h4>
                 </div>
                 <div className="tags">
-
+                    {props.tags.map((tag) =>(
+                        <div className="tag">
+                            {tag}
+                        </div>
+                    ))}
                 </div>
+                <img className="card-pfp-img likes" src={heart}/>
+                <p className="like-count">{props.likes}</p>
                 <img className="card-pfp-img likes" src={heart}/>
                 <p className="like-count">{props.likes}</p>
                 
@@ -21,6 +63,7 @@ const ViewCard = (props)=> {
                 <h3>{props.body}</h3>
             </div>
         </div>
+        {Comments(commentClick, setCommentClick)}
     </>
   );
 }

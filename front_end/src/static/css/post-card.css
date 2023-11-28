@@ -5,7 +5,7 @@
     border-width: 10px;
     border-radius: 5px;
     border-color: black;
-    box-shadow: 7px 7px;
+    box-shadow: 7px 7px black;
     margin-bottom: 20px;
 }
 
@@ -38,11 +38,9 @@
     border-right-style: solid;
     border-right-width: 3px;
     margin-right: 10px;
+    cursor: pointer;
 }
 
-.tags{
-    width: 80%;
-}
 
 .likes{
     border-right-width: 0px;
@@ -53,5 +51,124 @@
     display: flex;
     justify-content: start;
     padding: 10px;
-    height: 183px;
+    height: auto;
+}
+
+.tags{
+    width: 80%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    border-right-style: solid;
+    border-right-color: black;
+    border-right-width: 3px;
+    padding-left: 1%;
+    overflow: hidden;
+}
+
+.tags:hover{
+    overflow-x: scroll;
+}
+
+.tag{
+    border-style: solid;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-radius: 6px;
+    margin-right: 3%;
+    background-color: rgb(229, 229, 229);
+}
+
+.comment-button{
+    width: 7%; /*7 -> 50*/
+    height: 0vh; /*0 -> 20*/
+    background-color: black; /*white*/
+    border-style: solid; /*double*/
+    border-color: black;
+    border-width: 10px;
+    border-radius: 5px;
+    color:white; /*black*/
+    bottom: 15px;
+    position: relative;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /*start*/
+    align-items: center; /*start*/
+    cursor: pointer;
+    /*overflow-y: scroll;*/
+}
+
+.comment-button:active{
+    transition: 0.05s;
+    width: 50%; /*7 -> 50*/
+    height: 20vh; /*0 -> 20*/
+    background-color: white; /*white*/
+    border-style: double; /*double*/
+    border-color: black;
+    border-width: 10px;
+    border-radius: 5px;
+    color: black;
+    bottom: 15px;
+    position: relative;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: start; /*start*/
+    align-items: start; /*start*/
+    cursor:default;
+    overflow-y: scroll;
+}
+.comment-button-open{
+    width: 50%; /*7 -> 50*/
+    height: 20vh; /*0 -> 20*/
+    background-color: white; /*white*/
+    border-style: double; /*double*/
+    border-color: black;
+    border-width: 10px;
+    border-radius: 5px;
+    color: black;
+    bottom: 15px;
+    position: relative;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: start; /*start*/
+    align-items: start; /*start*/
+    cursor:default;
+    overflow-y: scroll;
+    box-shadow: 7px 2px black;
+    border-top-right-radius: 0px;
+
+}
+
+
+.user-comment-container{
+    width: 100%;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user-comment{
+    width: 90%;
+    height: 5vh;
+}
+
+.comments{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.comment-button:hover{
+    height: 3vh;
+    transition: 0.3s;
 }
