@@ -65,6 +65,13 @@ function SignInCtrl() {
             'username':email,
             'password_hash': password_hashing,
         }
+        try {
+            const response  = await axios.get('http://127.0.0.1:5000/users/signin', btoa(JSON.stringify(submission)));
+            console.log(response);
+            alert("Account Successfully Created! Have Fun!");
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     //function that signs up once the user presses Create Account
@@ -74,12 +81,20 @@ function SignInCtrl() {
         const password_hashing = await sha256(password);
         const submission = {
             'username':email,
-            'password': password_hashing,
+            'password_hash': password_hashing,
+            'avatar': pfp,
+            'bio': bio,
+            'user_type': userType,
+
         }
 
         try {
-            const response  = await axios.post('http://127.0.0.1:5000/users/signin', btoa(JSON.stringify(submission)));
-            
+            const response  = await axios.post('http://127.0.0.1:5000/users/create', btoa(JSON.stringify(submission)));
+            console.log(response);
+            //reset fields after processing
+            setEmail("");
+            setPassword("");
+            alert("Account Successfully Created! Have Fun!");
         } catch (error) {
             console.log(error);
         }

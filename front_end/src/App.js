@@ -5,6 +5,7 @@ import kojima_pfp from './static/images/kojima-pfp.jpg';
 import mario_pfp from './static/images/mario-pfp.jpg';
 import Header from './components/header';
 import ViewCard from './components/view-post-card';
+import PostCard from './components/post-card';
 function App() {
   const temp_info1 = {
     "pfp":biden_pfp,
@@ -47,6 +48,7 @@ function App() {
           <h4 className="filter-option">Anon.</h4>
           <h4 className="filter-option">Following.</h4>
         </div>
+        <PostCard pfp={temp_info1["pfp"]} author={temp_info1["author"]}/>
         <ViewCard pfp={temp_info1["pfp"]} author={temp_info1["author"]} body={temp_info1["body"]} color={"#fa000055"} likes={temp_info1["likes"]} tags={temp_info1["tags"]}/>
         <ViewCard pfp={temp_info2["pfp"]} author={temp_info2["author"]} body={temp_info2["body"]} color={"#0000fa55"} likes={temp_info2["likes"]} tags={temp_info1["tags"]}/>
         <ViewCard pfp={temp_info3["pfp"]} author={temp_info3["author"]} body={temp_info3["body"]} color={"#00ff005b"} likes={temp_info3["likes"]} tags={temp_info1["tags"]}/>

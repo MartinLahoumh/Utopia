@@ -1,0 +1,35 @@
+.post-card-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-area{
+    width:100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border-style: solid;
+    border-color: black;
+    border-radius: 3px;
+    overflow-x: scroll;
+}
+
+.img-content{
+    border-right: 5px;
+    width: 20%;
+}
+
+.post-card-body{
+    width: 100%;
+    height: 15vh;
+    resize: none;
+}
+
+.button-area{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
