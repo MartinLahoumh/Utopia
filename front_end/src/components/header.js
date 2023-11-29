@@ -9,15 +9,9 @@ import logo from '../static/images/utopia-logo.png';
 
 //components
 import SignInCtrl from './SignInCtrl';
+import Profile from "./profile";
 
-const Profile = (props) => {
-  return (
-    <div className='pfp-container'>
-      <img className='pfp-img' src={props.pfp} />
-      Profile
-    </div>
-  )
-}
+
 
 const Header = (props) => {
   const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
