@@ -2,9 +2,12 @@ import axios from 'axios';
 import {sha256} from 'crypto-hash';
 
 //sign in - checks user provided data against the DB account data using the /users/signin endpoint
+
 //password is the password provided
 //email is the username provided
-//returns [userid, password_hash] of the user created
+
+//returns [userid, password_hash, error] of the user created
+//error may be any errors that occured but is null if there are none
 
 export async function dbSignIn(password, email) {
     const password_hashing = await sha256(password);
@@ -18,6 +21,7 @@ export async function dbSignIn(password, email) {
     console.log(response);
 
     const uid = response["data"]["uid"];
+    const error = response["data"]["error"];
 
-    return [uid, password_hashing];
+    return [uid, password_hashing, error];
 }

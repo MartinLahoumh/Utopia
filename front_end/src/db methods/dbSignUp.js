@@ -2,9 +2,11 @@ import axios from 'axios';
 import {sha256} from 'crypto-hash';
 
 //sign up - creates a new user using the /users/create endpoint
+
 //password is the unhashed version of the password provided
 //email is the username provided
 //pfp, bio, userType are what were also provided
+
 //returns any errors that may have occurred, null if none
 
 export async function dbSignUp(password, email, pfp, bio, userType) {

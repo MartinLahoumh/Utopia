@@ -42,20 +42,23 @@ function SignInCtrl() {
             if (requestSignIn) {
                 try {
                     //ping the signin endpoint
-                    const [uid, password_hash] = await dbSignIn(password, email);
+                    const [uid, password_hash, error] = await dbSignIn(password, email);
 
-                    //try to set the cookies based on response data. If there is an error (i.e. the request failed) then the response data won't exist and the catch block executes.
+                    //try to set the cookies based on response data, if it was successful
+                    if (error == null) {
+                        //these two are needed for db queries
+                        setCookie("uid", uid);
+                        setCookie("key", password_hash);
+                        //this is needed for front end renders. If this cookie is null (doesn't exist), then the user is not logged in.
+                        setCookie("loggedIn", true);
 
-                    //these two are needed for db queries
-                    setCookie("uid", uid);
-                    setCookie("key", password_hash);
-                    //this is needed for front end renders. If this cookie is null (doesn't exist), then the user is not logged in.
-                    setCookie("loggedIn", true);
-
-                    //reset fields after processing
-                    setEmail("");
-                    setPassword("");
-                    alert("Successfully signed in.");
+                        //reset fields after processing
+                        setEmail("");
+                        setPassword("");
+                        alert("Successfully signed in.");
+                    } else {
+                        alert("Sign in failed. Error: " + error);
+                    }
                 } catch (error) {
                     console.log(error);
                 } finally {
