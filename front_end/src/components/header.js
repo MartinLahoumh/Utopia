@@ -10,17 +10,27 @@ import logo from '../static/images/utopia-logo.png';
 //components
 import SignInCtrl from './SignInCtrl';
 import Profile from "./profile";
-
+import SignOutCtrl from "./SignOutCtrl";
 
 
 const Header = (props) => {
+  //cookies
   const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
+
+  const loggedInComponent = (
+    <>
+      <SignOutCtrl />
+      <Profile pfp={props.pfp} />
+    </>
+  )
+
+  const loggedOutComponent = <SignInCtrl />;
 
   return (
     <>
       <div className='header'>
         <img className='logo' src={logo} />
-        {cookies.loggedIn == true ? <Profile pfp={props.pfp} /> : <SignInCtrl />}
+        {cookies.loggedIn == true ? loggedInComponent : loggedOutComponent}
         <input className='search' type='text' placeholder="Search..." />
       </div>
     </>
