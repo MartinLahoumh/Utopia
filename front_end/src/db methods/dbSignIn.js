@@ -10,11 +10,11 @@ import {sha256} from 'crypto-hash';
 //error may be any errors that occured but is null if there are none
 
 export async function dbSignIn(password, email) {
-    const password_hashing = await sha256(password);
+    const password_hash = await sha256(password);
 
     const submission = {
         'username': email,
-        'password_hash': password_hashing,
+        'password_hash': password_hash,
     }
     //ping the signin endpoint
     const response  = await axios.post('http://127.0.0.1:5000/users/signin', submission);
@@ -23,5 +23,5 @@ export async function dbSignIn(password, email) {
     const uid = response["data"]["uid"];
     const error = response["data"]["error"];
 
-    return [uid, password_hashing, error];
+    return [uid, password_hash, error];
 }

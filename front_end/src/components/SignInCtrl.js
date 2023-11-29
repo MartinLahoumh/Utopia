@@ -36,6 +36,24 @@ function SignInCtrl() {
 
     //EFFECTS**********************************************************************************
 
+    //helper function that sets cookies and generates alerts for signing in and up
+    function doLoginBehavior(error, uid, password_hash, successAlert, failureAlert){
+        if (error == null) {
+            //these two are needed for db queries
+            setCookie("uid", uid);
+            setCookie("key", password_hash);
+            //this is needed for front end renders. If this cookie is null (doesn't exist), then the user is not logged in.
+            setCookie("loggedIn", true);
+
+            //reset fields after processing
+            setEmail("");
+            setPassword("");
+            alert(successAlert);
+        } else {
+            alert(failureAlert);
+        }
+    }
+
     //effect that handles the signing in process
     useEffect(() => {
         async function handleSignIn() {
@@ -43,22 +61,9 @@ function SignInCtrl() {
                 try {
                     //ping the signin endpoint
                     const [uid, password_hash, error] = await dbSignIn(password, email);
-
+                    console.log("hi");
                     //try to set the cookies based on response data, if it was successful
-                    if (error == null) {
-                        //these two are needed for db queries
-                        setCookie("uid", uid);
-                        setCookie("key", password_hash);
-                        //this is needed for front end renders. If this cookie is null (doesn't exist), then the user is not logged in.
-                        setCookie("loggedIn", true);
-
-                        //reset fields after processing
-                        setEmail("");
-                        setPassword("");
-                        alert("Successfully signed in.");
-                    } else {
-                        alert("Sign in failed. Error: " + error);
-                    }
+                    doLoginBehavior(error, uid, password_hash, "Successfully signed in.", "Sign in failed. Error: " + error)
                 } catch (error) {
                     console.log(error);
                 } finally {
@@ -66,6 +71,7 @@ function SignInCtrl() {
                 }
             }
         }
+
         handleSignIn();
     }, [requestSignIn, password, email, setCookie]);
 
@@ -75,18 +81,10 @@ function SignInCtrl() {
             if (requestSignUp) {
                 try {
                     //ping the create user endpoint
-                    const error = await dbSignUp(password, email, pfp, bio, userType);
+                    const [uid, password_hash, error] = await dbSignUp(password, email, pfp, bio, userType);
 
-                    //check for error
-                    if (error == null) {
-                        //reset fields after processing
-                        setEmail("");
-                        setPassword("");
-                        alert("Account Successfully Created! Have Fun!");
-                    } else {
-                        alert("Error creating user: " + error);
-                    }
-
+                    //try to set the cookies based on response data, if it was successful
+                    doLoginBehavior(error, uid, password_hash, "Account Successfully Created! Have Fun!", "Error creating user: " + error)
                 } catch (error) {
                     console.log(error);
                 } finally {
@@ -94,6 +92,7 @@ function SignInCtrl() {
                 }
             }
         }
+
         handleSignUp();
     }, [requestSignUp, password, email, bio, pfp, userType]);
 
