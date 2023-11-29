@@ -70,7 +70,7 @@ function App() {
   const postCard = <PostCard pfp={temp_info1["pfp"]} author={temp_info1["author"]} />;
 
   //display logic
-  const showPostCard = cookies.loggedIn == true ? postCard : <></>;
+  // const showPostCard = cookies.loggedIn == true ? postCard : <></>;
 
   const suggested_users = [] //Get from the backend and fill it here
   const trending_users = [] //Get from the backend and fill it here
@@ -88,7 +88,7 @@ function App() {
             <h4 className="filter-option">Anon.</h4>
             <h4 className="filter-option">Following.</h4>
           </div>
-          {showPostCard}
+          {postCard}
           <ViewCard pfp={temp_info1["pfp"]} author={temp_info1["author"]} body={temp_info1["body"]} color={"#fa000055"} likes={temp_info1["likes"]} tags={temp_info1["tags"]} />
           <ViewCard pfp={temp_info2["pfp"]} author={temp_info2["author"]} body={temp_info2["body"]} color={"#0000fa55"} likes={temp_info2["likes"]} tags={temp_info1["tags"]} />
           <ViewCard pfp={temp_info3["pfp"]} author={temp_info3["author"]} body={temp_info3["body"]} color={"#00ff005b"} likes={temp_info3["likes"]} tags={temp_info1["tags"]} />
