@@ -6,6 +6,8 @@ import mario_pfp from './static/images/mario-pfp.jpg';
 import Header from './components/header';
 import ViewCard from './components/view-post-card';
 import PostCard from './components/post-card';
+import ProfileCard from './components/profile-view-card';
+import Browse from './components/browse';
 function App() {
   const temp_info1 = {
     "pfp":biden_pfp,
@@ -36,6 +38,10 @@ function App() {
     "reposts":"60",
     "tags":["President", "America", "USA"]
   }
+
+  const suggested_users = [] //Get from the backend and fill it here
+  const trending_users = [] //Get from the backend and fill it here
+  const job_listings = [] //Get from the backend and fill it
   return (
     <>
     <div className="header-container">
@@ -54,7 +60,9 @@ function App() {
         <ViewCard pfp={temp_info3["pfp"]} author={temp_info3["author"]} body={temp_info3["body"]} color={"#00ff005b"} likes={temp_info3["likes"]} tags={temp_info1["tags"]}/>
         <ViewCard pfp={temp_info3["pfp"]} author={temp_info3["author"]} body={temp_info3["body"]} color={"#ffff0055"} likes={temp_info3["likes"]} tags={temp_info1["tags"]}/>
       </div>
-      
+    </div>
+    <div className='header-container browse-container'>
+      <Browse />
     </div>
     </>
   );
