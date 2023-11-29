@@ -1,22 +1,103 @@
-import { useState } from "react";
-import SignInHTML from "../presentations/SignInHTML";
-import axios from 'axios';
-import tempPfp from '../static/images/anon-pfp.jpg';
+//hooks
+import { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
+
+//dependencies
 import {sha256} from 'crypto-hash';
 
+//assets
+import tempPfp from '../static/images/anon-pfp.jpg';
+
+//methods
+import { dbSignIn } from "../db methods/dbSignIn";
+import { dbSignUp } from "../db methods/dbSignUp";
+
+//components
+import SignInHTML from "../presentations/SignInHTML";
+
 function SignInCtrl() {
+    //STATES**********************************************************************************
 
     //state that determines whether to display the login panel or not
     const [showPanel, setShowPanel] = useState(false);
     //state that determines whether to display a login prompt (if true) or a signup prompt (if false) in the panel
     const [hasAccount, setHasAccount] = useState(true);
     //states that remember what was typed into the email and password field
-    let [email, setEmail] = useState("");
-    let [password, setPassword] = useState("");
-    let [pfp, setPfp] = useState(tempPfp);
-    let [pfpView, setPfpView] = useState(tempPfp);
-    let [bio, setBio] = useState("");
-    let [userType, setUserType] = useState("ORDINARY");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [pfp, setPfp] = useState(tempPfp);
+    const [pfpView, setPfpView] = useState(tempPfp);
+    const [bio, setBio] = useState("");
+    const [userType, setUserType] = useState("ORDINARY");
+    //states that act as the trigger for database requests
+    const [requestSignUp, setRequestSignUp] = useState(false);
+    const [requestSignIn, setRequestSignIn] = useState(false);
+
+    //cookies
+    const [cookies, setCookie, removeCookie] = useCookies();
+    console.log(cookies);
+
+    //EFFECTS**********************************************************************************
+
+    //effect that handles the signing in process
+    useEffect(() => {
+        async function handleSignIn() {
+            if (requestSignIn) {
+                const password_hashing = await sha256(password);
+
+                try {
+                    //ping the signin endpoint
+                    const response  = dbSignIn(password_hashing, email);
+                    console.log(response);
+        
+                    //try to set the cookies based on response data. If there is an error (i.e. the request failed) then the response data won't exist and the catch block executes.
+
+                    //these two are needed for db queries
+                    setCookie("uid", response["data"]["uid"]);
+                    setCookie("key", password_hashing);
+                    //this is needed for front end renders. If this cookie is null (doesn't exist), then the user is not logged in.
+                    setCookie("loggedIn", true);
+                    
+                    //reset fields after processing
+                    setEmail("");
+                    setPassword("");
+                    alert("Successfully signed in.");
+                } catch (error) {
+                    console.log(error);
+                } finally {
+                    setRequestSignIn(false); //finish the request
+                }
+            }
+        }
+        handleSignIn();
+    }, [requestSignIn]);
+
+    //effect that handles the signing up process
+    useEffect(() => {
+        async function handleSignUp() {
+            if (requestSignUp) {
+                const password_hashing = await sha256(password);
+        
+                try {
+                    //ping the create user endpoint
+                    const response  = dbSignUp(password_hashing, email, pfp, bio, userType);
+                    console.log(response);
+
+                    //reset fields after processing
+                    setEmail("");
+                    setPassword("");
+                    alert("Account Successfully Created! Have Fun!");
+                } catch (error) {
+                    console.log(error);
+                } finally {
+                    setRequestSignUp(false); //finish the request
+                }
+            }
+        }
+        handleSignUp();    
+    }, [requestSignUp]);
+
+
     //FUNCTIONS THAT UPDATE STATES**********************************************************************************
 
     //function that toggles the hasAccount state
@@ -57,47 +138,15 @@ function SignInCtrl() {
     //FUNCTIONS THAT PROCESS USER ACTIONS**********************************************************************************
 
     //function that signs in once the user presses Sign In
-    const signIn = async (e) =>{
+    const triggerSignIn = async (e) =>{
         e.preventDefault();
-        console.log("Sign in"); //placeholder
-        const password_hashing = await sha256(password);
-        const submission = {
-            'username':email,
-            'password_hash': password_hashing,
-        }
-        try {
-            const response  = await axios.get('http://127.0.0.1:5000/users/signin', btoa(JSON.stringify(submission)));
-            console.log(response);
-            alert("Account Successfully Created! Have Fun!");
-        } catch (error) {
-            console.log(error);
-        }
+        setRequestSignIn(true); //trigger the handling of sign in
     }
 
     //function that signs up once the user presses Create Account
-    const signUp = async (e) =>{
+    const triggerSignUp = async (e) =>{
         e.preventDefault();
-        console.log("Sign up"); //placeholder
-        const password_hashing = await sha256(password);
-        const submission = {
-            'username':email,
-            'password_hash': password_hashing,
-            'avatar': pfp,
-            'bio': bio,
-            'user_type': userType,
-
-        }
-
-        try {
-            const response  = await axios.post('http://127.0.0.1:5000/users/create', btoa(JSON.stringify(submission)));
-            console.log(response);
-            //reset fields after processing
-            setEmail("");
-            setPassword("");
-            alert("Account Successfully Created! Have Fun!");
-        } catch (error) {
-            console.log(error);
-        }
+        setRequestSignUp(true); //trigger the handling of sign up
     }
 
     //function that allows the user to reset password once the user presses Forgot Password?
@@ -110,7 +159,7 @@ function SignInCtrl() {
             <SignInHTML 
                 showPanel={showPanel} toggleShowPanel={toggleShowPanel}
                 hasAccount={hasAccount} toggleHasAccount={toggleHasAccount}
-                signIn={signIn} signUp={signUp}
+                triggerSignIn={triggerSignIn} triggerSignUp={triggerSignUp}
                 email={email} handleEmailChange={handleEmailChange}
                 password={password} handlePasswordChange={handlePasswordChange}
                 pfp={pfp} handlePfpChange={handlePfpChange}

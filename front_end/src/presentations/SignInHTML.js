@@ -24,7 +24,7 @@ function SignInHTML(props) {
     let button = props.hasAccount ? loginButton : signupButton;
 
     //function logic
-    let buttonLogic = props.hasAccount ? props.signIn : props.signUp;
+    let buttonLogic = props.hasAccount ? props.triggerSignIn : props.triggerSignUp;
     
     //document.getElementById('ordinary-btn').style = "";
     const buttonChange = (e)=>{
