@@ -47,7 +47,7 @@ function SignInCtrl() {
 
                 try {
                     //ping the signin endpoint
-                    const response  = dbSignIn(password_hashing, email);
+                    const response  = await dbSignIn(password_hashing, email);
                     console.log(response);
         
                     //try to set the cookies based on response data. If there is an error (i.e. the request failed) then the response data won't exist and the catch block executes.
@@ -80,7 +80,7 @@ function SignInCtrl() {
         
                 try {
                     //ping the create user endpoint
-                    const response  = dbSignUp(password_hashing, email, pfp, bio, userType);
+                    const response  = await dbSignUp(password_hashing, email, pfp, bio, userType);
                     console.log(response);
 
                     //reset fields after processing
