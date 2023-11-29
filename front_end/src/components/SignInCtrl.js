@@ -2,9 +2,6 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
-//dependencies
-import {sha256} from 'crypto-hash';
-
 //assets
 import tempPfp from '../static/images/anon-pfp.jpg';
 
@@ -43,21 +40,18 @@ function SignInCtrl() {
     useEffect(() => {
         async function handleSignIn() {
             if (requestSignIn) {
-                const password_hashing = await sha256(password);
-
                 try {
                     //ping the signin endpoint
-                    const response  = await dbSignIn(password_hashing, email);
-                    console.log(response);
-        
+                    const [uid, password_hash] = await dbSignIn(password, email);
+
                     //try to set the cookies based on response data. If there is an error (i.e. the request failed) then the response data won't exist and the catch block executes.
 
                     //these two are needed for db queries
-                    setCookie("uid", response["data"]["uid"]);
-                    setCookie("key", password_hashing);
+                    setCookie("uid", uid);
+                    setCookie("key", password_hash);
                     //this is needed for front end renders. If this cookie is null (doesn't exist), then the user is not logged in.
                     setCookie("loggedIn", true);
-                    
+
                     //reset fields after processing
                     setEmail("");
                     setPassword("");
@@ -70,23 +64,26 @@ function SignInCtrl() {
             }
         }
         handleSignIn();
-    }, [requestSignIn]);
+    }, [requestSignIn, password, email, setCookie]);
 
     //effect that handles the signing up process
     useEffect(() => {
         async function handleSignUp() {
             if (requestSignUp) {
-                const password_hashing = await sha256(password);
-        
                 try {
                     //ping the create user endpoint
-                    const response  = await dbSignUp(password_hashing, email, pfp, bio, userType);
-                    console.log(response);
+                    const error = await dbSignUp(password, email, pfp, bio, userType);
 
-                    //reset fields after processing
-                    setEmail("");
-                    setPassword("");
-                    alert("Account Successfully Created! Have Fun!");
+                    //check for error
+                    if (error == null) {
+                        //reset fields after processing
+                        setEmail("");
+                        setPassword("");
+                        alert("Account Successfully Created! Have Fun!");
+                    } else {
+                        alert("Error creating user: " + error);
+                    }
+
                 } catch (error) {
                     console.log(error);
                 } finally {
@@ -94,8 +91,8 @@ function SignInCtrl() {
                 }
             }
         }
-        handleSignUp();    
-    }, [requestSignUp]);
+        handleSignUp();
+    }, [requestSignUp, password, email, bio, pfp, userType]);
 
 
     //FUNCTIONS THAT UPDATE STATES**********************************************************************************
@@ -126,25 +123,25 @@ function SignInCtrl() {
         setBio(e.target.value)
     }
 
-    const handlePfpChange = (e)=> {
+    const handlePfpChange = (e) => {
         console.log(e.target.files);
         setPfp(e.target.files[0]);
         setPfpView(URL.createObjectURL(e.target.files[0]));
     }
 
-    const handleUserTypeChange = (type)=>{
+    const handleUserTypeChange = (type) => {
         setUserType(type);
     }
     //FUNCTIONS THAT PROCESS USER ACTIONS**********************************************************************************
 
     //function that signs in once the user presses Sign In
-    const triggerSignIn = async (e) =>{
+    const triggerSignIn = (e) => {
         e.preventDefault();
         setRequestSignIn(true); //trigger the handling of sign in
     }
 
     //function that signs up once the user presses Create Account
-    const triggerSignUp = async (e) =>{
+    const triggerSignUp = (e) => {
         e.preventDefault();
         setRequestSignUp(true); //trigger the handling of sign up
     }
@@ -156,7 +153,7 @@ function SignInCtrl() {
 
     return (
         <>
-            <SignInHTML 
+            <SignInHTML
                 showPanel={showPanel} toggleShowPanel={toggleShowPanel}
                 hasAccount={hasAccount} toggleHasAccount={toggleHasAccount}
                 triggerSignIn={triggerSignIn} triggerSignUp={triggerSignUp}
@@ -166,7 +163,7 @@ function SignInCtrl() {
                 pfpView={pfpView}
                 bio={bio} handleBioChange={handleBioChange}
                 handleUserTypeChange={handleUserTypeChange}
-                processForgotPassword={processForgotPassword}/>
+                processForgotPassword={processForgotPassword} />
         </>
     );
 
