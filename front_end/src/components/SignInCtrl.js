@@ -1,9 +1,19 @@
+//hooks
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import SignInHTML from "../presentations/SignInHTML";
-import axios from 'axios';
-import tempPfp from '../static/images/anon-pfp.jpg';
+
+//dependencies
 import {sha256} from 'crypto-hash';
+
+//assets
+import tempPfp from '../static/images/anon-pfp.jpg';
+
+//methods
+import { dbSignIn } from "../db methods/dbSignIn";
+import { dbSignUp } from "../db methods/dbSignUp";
+
+//components
+import SignInHTML from "../presentations/SignInHTML";
 
 function SignInCtrl() {
     //STATES**********************************************************************************
@@ -34,16 +44,14 @@ function SignInCtrl() {
         async function handleSignIn() {
             if (requestSignIn) {
                 const password_hashing = await sha256(password);
-                const submission = {
-                    'username': email,
-                    'password_hash': password_hashing,
-                }
+
                 try {
                     //ping the signin endpoint
-                    const response  = await axios.post('http://127.0.0.1:5000/users/signin', submission);
+                    const response  = dbSignIn(password_hashing, email);
                     console.log(response);
         
                     //try to set the cookies based on response data. If there is an error (i.e. the request failed) then the response data won't exist and the catch block executes.
+
                     //these two are needed for db queries
                     setCookie("uid", response["data"]["uid"]);
                     setCookie("key", password_hashing);
@@ -57,7 +65,7 @@ function SignInCtrl() {
                 } catch (error) {
                     console.log(error);
                 } finally {
-                    setRequestSignIn(false);
+                    setRequestSignIn(false); //finish the request
                 }
             }
         }
@@ -69,19 +77,12 @@ function SignInCtrl() {
         async function handleSignUp() {
             if (requestSignUp) {
                 const password_hashing = await sha256(password);
-                const submission = {
-                    'username': email,
-                    'password_hash': password_hashing,
-                    'avatar': pfp,
-                    'bio': bio,
-                    'user_type': userType,
-        
-                }
         
                 try {
                     //ping the create user endpoint
-                    const response  = await axios.post('http://127.0.0.1:5000/users/create', submission);
+                    const response  = dbSignUp(password_hashing, email, pfp, bio, userType);
                     console.log(response);
+
                     //reset fields after processing
                     setEmail("");
                     setPassword("");
@@ -89,8 +90,7 @@ function SignInCtrl() {
                 } catch (error) {
                     console.log(error);
                 } finally {
-                    console.log("hello");
-                    setRequestSignUp(false);
+                    setRequestSignUp(false); //finish the request
                 }
             }
         }
