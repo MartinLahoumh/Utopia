@@ -1,11 +1,19 @@
+//hooks
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { CookiesProvider } from 'react-cookie';
+
+//assets
 import './App.css';
 import logo from './static/images/utopia-logo.png';
 import biden_pfp from './static/images/biden-pfp.jpg';
 import kojima_pfp from './static/images/kojima-pfp.jpg';
 import mario_pfp from './static/images/mario-pfp.jpg';
+
+//methods
+import { dbAnonSignUp } from "./db methods/dbAnonSignUp";
+
+//components
 import Header from './components/header';
 import ViewCard from './components/view-post-card';
 import PostCard from './components/post-card';
@@ -15,6 +23,18 @@ import Browse from './components/browse';
 function App() {
   //cookies
   const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
+
+  //automatically create an anonymous user for the client when the app is first used
+  async function createAnonUser() {
+    if (cookies.anon_uid == null) {
+      const [anon_uid, anon_key, error] = await dbAnonSignUp();
+      console.log(anon_uid, anon_key);
+      setCookie("anon_uid", anon_uid);
+      setCookie("anon_key", anon_key);
+    }
+  }
+  createAnonUser();
+  console.log(cookies);
 
   const temp_info1 = {
     "pfp": biden_pfp,
