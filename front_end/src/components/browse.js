@@ -9,92 +9,60 @@ const Browse = (props)=> {
         console.log(e.target.id);
         if(open == false){
             setOpen(true);
-            document.getElementById('browse-wrapper').style = " margin-top:40px; transition: 0.3s;";
+            //document.getElementById('browse-container-comp').style = " margin-top:40px; transition: 0.3s;";
             
         }
         else if(open == true){
             setOpen(false);
-            document.getElementById('browse-wrapper').style = "margin-top:855px; transition: 0.3s;";
+            //document.getElementById('browse-container-comp').style = "margin-top:225px; transition: 0.3s;";
         }
     }
 
-    const containerOpen = (e)=>{
-        console.log(e)
-        if(e.target.id == 'suggested'){
-            document.getElementById('suggested-container').style = " height: 80vh; transition:0.3s;";
-            document.getElementById('trending-container').style = " height: 5vh; transition:0.3s;";
-            document.getElementById('jobs-container').style = " height: 5vh; transition:0.3s;";
-            document.querySelectorAll('.spcSuggested')[0].style.height = '80vh';
-            document.querySelectorAll('.spcTrending')[0].style.height = '5vh';
-            document.querySelectorAll('.spcJobs')[0].style.height = '5vh';
+    const isOpen = (open)=>{
+        if(open == false){
+            return(
+                <>
+                    <div className='sub-container' style={{backgroundColor:'#ffff0055', borderBottomStyle:'solid', borderBottomColor:'black', borderBottomWidth:'5px',borderTopStyle:'solid', borderTopColor:'black', borderTopWidth:'5px'}}>
+                    <h2>Suggested</h2>
+                    <div className='item-container'>
+                        {/*Change to be a map where we have an array that stores all suggested users. Make it a prop as well */}
+                        <ProfileCard />
+                        <ProfileCard />
+                        <ProfileCard />
+                        <ProfileCard />
+                        <ProfileCard />
+                    </div>
+                </div>
+                <div className='sub-container' style={{backgroundColor:'#fa000055'}}>
+                    <h2>Trending Topics</h2>
+                    <div className='item-container'>
+                        <ul>
+                            {/*Change to be a prop */}
+                            {trendingTopics.map((topic) =>(
+                                <>
+                                <li>{topic}</li>
+                                <br/>
+                                </>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+                </>
+            )
         }
-        else if(e.target.id == 'trending'){
-            document.getElementById('suggested-container').style = " height: 5vh; transition:0.3s;";
-            document.getElementById('trending-container').style = " height: 80vh; transition:0.3s;";
-            document.getElementById('jobs-container').style = " height: 5vh; transition:0.3s;";
-            document.getElementsByClassName('spcJobs').style = "overflow-y: hidden;"
-            document.getElementsByClassName('spcTrending').style = "overflow-y: scroll;"
-            document.getElementsByClassName('spcSuggested').style = "overflow-y: hidden;"
-            document.querySelectorAll('.spcSuggested')[0].style.height = '5vh';
-            document.querySelectorAll('.spcTrending')[0].style.height = '80vh';
-            document.querySelectorAll('.spcJobs')[0].style.height = '5vh';
-            
-        }
-        else if(e.target.id == 'jobs'){
-            document.getElementById('suggested-container').style = " height: 5vh; transition:0.3s;";
-            document.getElementById('trending-container').style = " height: 5vh; transition:0.3s;";
-            document.getElementById('jobs-container').style = " height: 80vh; transition:0.3s;";
-            document.getElementsByClassName('spcJobs').style = "overflow-y: auto;"
-            document.getElementsByClassName('spcTrending').style = "overflow-y: hidden;"
-            document.getElementsByClassName('spcSuggested').style = "overflow-y: hidden;"
-            document.querySelectorAll('.spcSuggested')[0].style.height = '5vh';
-            document.querySelectorAll('.spcTrending')[0].style.height = '5vh';
-            document.querySelectorAll('.spcJobs')[0].style.height = '80vh';
+        else if(open == true){
+            return(<></>)
         }
     }
-    //Recieve the info from props CONTINUE HERE!!!
-  return (
-    <div className='browse-wrapper' id='browse-wrapper'>  
-        <div className='browse-container-comp'>
-                <div style={{ width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}} onClick={browseOpen}>
+    /* These are temp values. You will need to  GET the topics from backend and fill it out*/
+    const trendingTopics = ['mario', 'biden', 'trump', 'game', '2024'] 
+  return (  
+        <div className='browse-container-comp' id='browse-container-comp'>
+                <div className='browse-title-container' style={{ width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}} onClick={browseOpen}>
                 <h1 className='browse-title'>Browse</h1>
                 </div>
-                
-                <div onClick={containerOpen} className='sub-container suggested' id='suggested-container'>
-                    <div style={{ width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}} id='suggested'>
-                        <h2 className='browse-title'>Suggested</h2>
-                    </div>
-                    <div className='suggested-profile-container spcSuggested' id='suggested'>
-                        {/*Insert profile cards here */}
-                        <ProfileCard  />
-                        <ProfileCard  />
-                        <ProfileCard  />
-                        <ProfileCard  />
-                    </div>
-                </div>
-            <div onClick={containerOpen}className='sub-container trending' id='trending-container'>
-            <div style={{ width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}} id='trending'>
-                        <h2 className='browse-title'>Trending Users</h2>
-                    </div>
-                <div className='suggested-profile-container spcTrending' id='trending'>
-                    {/*Insert profile cards here */}
-                    <ProfileCard  />
-                    <ProfileCard  />
-                    <ProfileCard  />
-                    <ProfileCard  />
-                </div>
-            </div>
-            <div onClick={containerOpen}className='sub-container jobs' id='jobs-container'>
-            <div style={{ width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}} id='jobs'>
-                        <h2 className='browse-title'>Job Listings</h2>
-            </div>
-            <div className='suggested-profile-container spcJobs' id='jobs'>
-                    {/*Insert profile cards here */}
-                    <ProfileCard  />
-                </div>
-            </div>
+                {isOpen(open)}
         </div>
-    </div>
   );
 }
 

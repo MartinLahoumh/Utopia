@@ -21,9 +21,13 @@
 }
 
 .browse-container{
-  width: 30%;
-  top: 0;
-  right: 0;
+  margin-top: 50px;
+  width: 25%;
+  bottom: 0;
+  right: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: end;
 }
 
 .temp{

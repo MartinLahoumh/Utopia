@@ -172,3 +172,11 @@
     height: 3vh;
     transition: 0.3s;
 }
+
+.follow-button{
+    box-shadow: none;
+    border-style: none;
+    border-left-style: solid;
+    border-left-width: 4px;
+    border-radius: 0;
+}

@@ -57,8 +57,8 @@ function App() {
         <div className="posts-container">
           <div className="main-filters">
             <h4 className="filter-option">For You.</h4>
-            <h4 className="filter-option">Anon.</h4>
             <h4 className="filter-option">Following.</h4>
+            <h4 className="filter-option">Jobs.</h4>
           </div>
           <PostCard pfp={temp_info1["pfp"]} author={temp_info1["author"]} />
           <ViewCard pfp={temp_info1["pfp"]} author={temp_info1["author"]} body={temp_info1["body"]} color={"#fa000055"} likes={temp_info1["likes"]} tags={temp_info1["tags"]} />
