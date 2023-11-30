@@ -1,11 +1,17 @@
 .suggested-profile-container{
     width: 90%;
+    height: 25vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: hidden;
 }
 
+.browse-title{
+    margin:0px;
+    padding-bottom: 8px;
+}
 .sub-container{
     /*background-color: green;*/
     width: 100%;
@@ -13,6 +19,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0;
 }
 
 .suggested{
@@ -29,39 +36,36 @@
 .jobs{
     background-color: #00ff005b;
 }
+
 .browse-wrapper{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left:71%;
-    
-}
-
-
-.browse-button{
-    height: 10vh;
-    width: 0%; /*7 -> 50*/
-    background-color: black; /*white*/
-    border-style: solid; /*double*/
-    border-color: black;
-    border-width: 10px;
-    border-radius: 5px;
-    color:white; /*black*/
-    position: relative;
+    width: 95%;
+    margin-top: 855px;
+    margin-left: 3%;
+    box-shadow: 7px 5px black;
     transition: 0.3s;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /*start*/
-    align-items: center; /*start*/
     cursor: pointer;
+}
+
+.browse-wrapper:hover{
+    margin-top: 845px;
+    transition: 0.3s;
+}
+.browse-button{
+    margin:0;
+    padding: 0;
+    margin-bottom: -15px;
+    width: 20%;
+}
+
+.browse-button:hover{
+    height: 4vh;
     transition: 0.3s;
 }
 
-.browse-button:hover {
-    transition: 0.3s;
-    margin-left:5%;
-}
 
 .browse-container-comp{
     
@@ -69,7 +73,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    width: 100%;
     border-style: solid;
     border-width: 4px;
     border-radius: 3px;

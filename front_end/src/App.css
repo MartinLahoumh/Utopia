@@ -21,10 +21,9 @@
 }
 
 .browse-container{
-  margin-top: 35px;
-  width: 48%;
-  top: 2%;
-  right: -10%;
+  width: 30%;
+  top: 0;
+  right: 0;
 }
 
 .temp{
@@ -42,7 +41,7 @@
   top: 0px;
 }
 .posts-container{
-  width: 80%;
+  width: 64%;
   display: flex;
   flex-direction: column;
   justify-content: center;
