@@ -13,6 +13,20 @@
     margin-bottom: 10px;
   }
 
+  .ad-container{
+    border-style: double;
+    border-color: black;
+    border-width: 10px;
+    box-shadow: 7px 5px black;
+    object-fit: contain;
+    width: 70%;
+    height: 20vh;
+  }
+
+  .ad{
+    max-height: 100%;
+    max-width: 100%;
+  }
   .pfp-container{
     width: 25%;
     border-style:solid;
