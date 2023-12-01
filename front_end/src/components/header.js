@@ -13,7 +13,7 @@ import videoIcon from '../static/images/video-icon.png';
 
 //components
 import SignInCtrl from './SignInCtrl';
-import Profile from "./profile-card";
+import SelfProfile from "./self-profile";
 import SignOutCtrl from "./SignOutCtrl";
 
 
@@ -24,7 +24,7 @@ const Header = (props) => {
   const loggedInComponent = (
     <>
       <SignOutCtrl />
-      <Profile />
+      <SelfProfile />
     </>
   )
 

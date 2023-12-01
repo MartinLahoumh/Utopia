@@ -3,7 +3,7 @@ import '../static/css/profile-view-card.css';
 import heart from '../static/images/heart.png';
 import { useState } from "react";
 
-const Profile = (props)=> {
+const OtherProfile = (props)=> {
   return (
     <>
         <div style={{width: '70%'}}className='card'>
@@ -19,4 +19,4 @@ const Profile = (props)=> {
   );
 }
 
-export default Profile;
+export default OtherProfile;
