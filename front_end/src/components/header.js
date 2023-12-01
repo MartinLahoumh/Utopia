@@ -33,22 +33,27 @@ const Header = (props) => {
         {cookies.loggedIn == true ? <Profile pfp={props.pfp} /> : <SignInCtrl />}
         <input className='search' type='text' placeholder="Search..." />
         <br />
+
         {/*These are all the filter. They are the 3 icons in the header */}
         <div className="filter-option-container">
           <div className="ad-container icon-container">
-            <img className='ad icon' src={profileIcon}/>
+            <img className='ad icon' id='icon'src={profileIcon}/>
+            <label className="icon-label" id='icon-label'>Profiles</label>
           </div>
           <div className="ad-container icon-container">
             <img className='ad icon' src={imageIcon}/>
+            <label className="icon-label">Images</label>
           </div>
           <div className="ad-container icon-container">
             <img className='ad icon' src={videoIcon}/>
+            <label className="icon-label">Videos</label>
           </div>
         </div>
+
         {/*This is the ad section. It will hold an ad */}
-        <div className="ad-container">
+        <a href="https://www.mcdonalds.com/us/en-us.html" target='_blank'className="ad-container">
           <img className='ad' src={tempAd}/>
-        </div>
+        </a>
       </div>
     </>
   );

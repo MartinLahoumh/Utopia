@@ -21,7 +21,7 @@ function App() {
     "body": "I am the president yo",
     "likes": "50",
     "reposts": "60",
-    "tags": ["President", "America", "USA", "USA", "USA", "USA", "USA"]
+    "tags": ["President", "America", "USA"]
   }
 
   const temp_info2 = {

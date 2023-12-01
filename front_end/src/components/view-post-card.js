@@ -46,6 +46,7 @@ const ViewCard = (props)=> {
                 <div className='card-author-container'>
                     <h4 className='card-author'>{props.author}</h4>
                 </div>
+                <div className='follow-button-post'>Follow</div>
                 <div className="tags">
                     {props.tags.map((tag) =>(
                         <div className="tag">

@@ -5,10 +5,19 @@ import mario from '../static/images/mario-pfp.jpg';
 import { useState } from "react";
 
 const PostCard = (props)=> {
-    let [tags, setTags] = useState("");
+    let [tags, setTags] = useState({});
     let [body, setBody] = useState("");
     function handleTagChange(e) {
-        setTags(e.target.value);
+        if(e.target.id == '0'){
+            setTags({ ...tags, 0: e.target.value });
+        }
+        else if(e.target.id == '1'){
+            setTags({ ...tags, 1: e.target.value });
+        }
+        else if(e.target.id == '2'){
+            setTags({ ...tags, 2: e.target.value });
+        }
+        
     }
 
     function handleBodyChange(e) {
@@ -25,7 +34,9 @@ const PostCard = (props)=> {
                     <h4 className='card-author'>{props.author}</h4>
                 </div>
                 <div className="tags">
-                    <input value={tags} onChange={handleTagChange}/>
+                    <input className='tag' id='0'value={tags[0]} onChange={handleTagChange}/>
+                    <input className='tag' id='1'value={tags[1]} onChange={handleTagChange}/>
+                    <input className='tag' id='2'value={tags[2]} onChange={handleTagChange}/>
                 </div>
             </div>
             <div style={{backgroundColor: props.color}} className='card-body post-card-content'>
