@@ -1,5 +1,6 @@
 import '../static/css/post-card.css';
 import heart from '../static/images/heart.png';
+import brokenHeart from '../static/images/broken-heart.png';
 import { useState } from "react";
 
 const Comments = (comment, setComment)=>{
@@ -56,7 +57,7 @@ const ViewCard = (props)=> {
                 </div>
                 <img className="card-pfp-img likes" src={heart}/>
                 <p className="like-count">{props.likes}</p>
-                <img className="card-pfp-img likes" src={heart}/>
+                <img className="card-pfp-img likes" src={brokenHeart}/>
                 <p className="like-count">{props.likes}</p>
                 
             </div>

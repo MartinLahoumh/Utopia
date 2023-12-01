@@ -11,7 +11,7 @@ import ViewCard from './components/view-post-card';
 import PostCard from './components/post-card';
 import ProfileCard from './components/profile-view-card';
 import Browse from './components/browse';
-
+import JobCard from "./components/job-card";
 function App() {
 
   const temp_info1 = {
@@ -54,7 +54,7 @@ function App() {
         <Header />
       </div>
       <div className="App">
-        <div className="posts-container">
+        <div style={{backgroundColor:'green;'}}className="posts-container">
           <div className="main-filters">
             <h4 className="filter-option">For You.</h4>
             <h4 className="filter-option">Following.</h4>
@@ -65,6 +65,11 @@ function App() {
           <ViewCard pfp={temp_info2["pfp"]} author={temp_info2["author"]} body={temp_info2["body"]} color={"#0000fa55"} likes={temp_info2["likes"]} tags={temp_info1["tags"]} />
           <ViewCard pfp={temp_info3["pfp"]} author={temp_info3["author"]} body={temp_info3["body"]} color={"#00ff005b"} likes={temp_info3["likes"]} tags={temp_info1["tags"]} />
           <ViewCard pfp={temp_info3["pfp"]} author={temp_info3["author"]} body={temp_info3["body"]} color={"#ffff0055"} likes={temp_info3["likes"]} tags={temp_info1["tags"]} />
+
+          {/*JOB DISPLAY TEST */}
+          {/*<div style={{backgroundColor:'red;'}}className="posts-container job-posts-container">
+            <JobCard />
+        </div> */}
         </div>
       </div>
       <div className='header-container browse-container'>

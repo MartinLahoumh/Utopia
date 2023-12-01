@@ -1,0 +1,10 @@
+.job-card{
+    width: 25%; 
+}
+
+.job-card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
