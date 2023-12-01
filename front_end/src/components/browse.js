@@ -1,7 +1,7 @@
 import '../static/css/post-card.css';
 import heart from '../static/images/heart.png';
 import { useState } from "react";
-import ProfileCard from './profile-view-card';
+import ProfileCard from './profile-card';
 import '../static/css/browse.css';
 const Browse = (props)=> {
     let [open, setOpen] = useState(false); //Determines if the tab is open or not

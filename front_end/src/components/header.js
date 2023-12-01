@@ -13,24 +13,28 @@ import videoIcon from '../static/images/video-icon.png';
 
 //components
 import SignInCtrl from './SignInCtrl';
+import Profile from "./profile-card";
+import SignOutCtrl from "./SignOutCtrl";
 
-const Profile = (props) => {
-  return (
-    <div className='pfp-container'>
-      <img className='pfp-img' src={props.pfp} />
-      Profile
-    </div>
-  )
-}
 
 const Header = (props) => {
+  //cookies
   const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
+
+  const loggedInComponent = (
+    <>
+      <SignOutCtrl />
+      <Profile />
+    </>
+  )
+
+  const loggedOutComponent = <SignInCtrl />;
 
   return (
     <>
       <div className='header'>
         <img className='logo' src={logo} />
-        {cookies.loggedIn == true ? <Profile pfp={props.pfp} /> : <SignInCtrl />}
+        {cookies.loggedIn == true ? loggedInComponent : loggedOutComponent}
         <input className='search' type='text' placeholder="Search..." />
         <br />
 
