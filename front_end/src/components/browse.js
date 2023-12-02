@@ -1,7 +1,7 @@
 import '../static/css/post-card.css';
 import heart from '../static/images/heart.png';
 import { useState } from "react";
-import ProfileCard from './profile-view-card';
+import OtherProfile from './others-profile';
 import '../static/css/browse.css';
 const Browse = (props)=> {
     let [open, setOpen] = useState(false); //Determines if the tab is open or not
@@ -33,11 +33,11 @@ const Browse = (props)=> {
                         <h2>Suggested</h2>
                     <div className='item-container'> {/* Will contain all the posts */}
                         {/*Change to be a map where we have an array that stores all suggested users */}
-                        <ProfileCard />
-                        <ProfileCard />
-                        <ProfileCard />
-                        <ProfileCard />
-                        <ProfileCard />
+                        <OtherProfile />
+                        <OtherProfile />
+                        <OtherProfile />
+                        <OtherProfile />
+                        <OtherProfile />
                     </div>
                 </div>
                 {/*This is a container that will contain all the TRENDING content. Basically everything in red. */}

@@ -1,0 +1,17 @@
+# Role of each cookie
+- `anon_id`: contains the user id (int) of the anon user that is auto-created for a browser
+  - if it is ever `null` or missing, then a new anon user will be auto-created and a new `anon_id` is created based off that
+  - used in conjunction with `anon_key` to authenticate database calls
+  - only meant to be used if `uid` and `key` do not exist
+- `anon_key`: contains the hashed password auto-created for the anon user
+  - used in conjunction with `anon_uid` to authenticate database calls
+  - only meant to be used if `uid` and `key` do not exist
+- `uid`: contains the user id (int) of an account that has logged in successfully
+  - if `null` or missing, then that means the browser is not logged into an account
+  - removed when the user signs out
+  - used in conjunction with `key` to authenticate database calls
+- `key`: contains the password hash that the user typed in when logging in, if the login attempt was successful
+  - removed when the user signs out
+  - used in conjunction with `uid` to authenticate database calls
+- `loggedIn`: (boolean) tells you if the browser is currently logged in or not
+  - used for rendering logic to avoid needless database calls
