@@ -21,6 +21,21 @@ import JobCard from "./components/job-card";
 
 
 function App() {
+  //cookies
+  const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
+
+  //automatically create an anonymous user for the client when the app is first used
+  async function createAnonUser() {
+    if (cookies.anon_uid == null) {
+      const [anon_uid, anon_key, error] = await dbAnonSignUp();
+      console.log(anon_uid, anon_key);
+      setCookie("anon_uid", anon_uid);
+      setCookie("anon_key", anon_key);
+    }
+  }
+  createAnonUser();
+  console.log(cookies);
+  
   let [page, setPage] = useState("ForYou") //This determines what part of the page we render. EX: For you page or Job List page
   //These are all temp values. In reality, this wont be filled up like this, you fill it up from back end. This stores all our posts
   let [posts, setPosts] = useState([{ 
@@ -66,20 +81,6 @@ function App() {
   }])
 
   let [jobs, setJobs] = useState([{}]); //Set Job Info Here
-  //cookies
-  const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
-
-  //automatically create an anonymous user for the client when the app is first used
-  async function createAnonUser() {
-    if (cookies.anon_uid == null) {
-      const [anon_uid, anon_key, error] = await dbAnonSignUp();
-      console.log(anon_uid, anon_key);
-      setCookie("anon_uid", anon_uid);
-      setCookie("anon_key", anon_key);
-    }
-  }
-  createAnonUser();
-  console.log(cookies);
   //raw content
   const postCard = <PostCard pfp={biden_pfp} author={"biden"} />;
 
