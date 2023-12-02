@@ -9,18 +9,14 @@ const JobCard = (props)=> {
     <>
         <div className='card job-card'>
             <div className='card-header job-card-header'>
-                <img className='card-pfp-img job-logo' src={props.pfp}/>
-                <h4 className='job-position-title'>Tesla</h4>
+                <img className='card-pfp-img job-logo' src={props.jobIcon}/>
+                <h4 className='job-position-title'>{props.position}</h4>
             </div>
             <div style={{backgroundColor: props.color}} className='card-body job-card-body'>
                 <ul>
-                    {/* Make these a map from the actual req, not hard coded and all that */}
-                    <li>
-                        Work well with others
-                    </li>
-                    <li>
-                        Good Work Ethic
-                    </li>
+                    {props.requirements.map((req) =>(
+                        <li>{req}</li>
+                    ))}
                 </ul>
                 <button className='main-button'>Apply</button>
             </div>

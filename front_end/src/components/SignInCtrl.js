@@ -54,6 +54,7 @@ function SignInCtrl() {
 
                     //these two are needed for db queries
                     setCookie("uid", response["data"]["uid"]);
+                    setCookie("userType", response["data"]["user_type"]);
                     setCookie("key", password_hashing);
                     //this is needed for front end renders. If this cookie is null (doesn't exist), then the user is not logged in.
                     setCookie("loggedIn", true);

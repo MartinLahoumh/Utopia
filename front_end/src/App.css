@@ -44,6 +44,16 @@
   background-color: #faf7ef;
   top: 0px;
 }
+
+.filter-option{
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.filter-option:hover{
+  text-decoration: underline;
+  transition: 0.3s;
+}
 .posts-container{
   width: 64%;
   display: flex;
@@ -52,6 +62,17 @@
   align-items: center;
   /*padding-right: 150px;
   padding-top: 60px;*/
+}
+
+.job-posts-container{
+  width: 85%;
+  gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-item{
+  background-color: purple;
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

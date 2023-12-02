@@ -1,5 +1,6 @@
 .job-card{
-    width: 25%; 
+    width: 90%; 
+    margin: 0;
 }
 
 .job-card-body{
@@ -7,4 +8,5 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0;
 }

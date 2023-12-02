@@ -33,3 +33,32 @@
     align-items: center;
     
 }
+
+.post-type{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin:0;
+    height: 5vh;
+}
+
+.option-tag{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ad-img-container{
+    border-style: solid;
+    border-color: black;
+    border-width: 3px;
+    border-radius: 5px;
+    object-fit: contain;
+    width: 50%;
+    margin-bottom: 50px;
+  }
+
+  .ad-img{
+    max-height: 100%;
+    max-width: 100%;
+  }
