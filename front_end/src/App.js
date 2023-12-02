@@ -24,6 +24,8 @@ function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
 
   //automatically create an anonymous user for the client when the app is first used
+  useEffect(() => {
+  }, [])
   async function createAnonUser() {
     if (cookies.anon_uid == null) {
       const [anon_uid, anon_key, error] = await dbAnonSignUp();
@@ -32,7 +34,27 @@ function App() {
       setCookie("anon_key", anon_key);
     }
   }
-  createAnonUser();
+
+  try {
+    //createAnonUser();
+  } catch(error) {
+    console.log(error);
+  }
+
+  //if the user is logged in, retrieve user info
+  useEffect(() => {
+    async function getUserInfo() {
+
+    }
+  }, [cookies["uid"]]);
+
+  //testing
+  // function removeAllCookies() {
+  //   for (let x in cookies) {
+  //     removeCookie(x);
+  //   }
+  // }
+  // removeAllCookies();
   console.log(cookies);
 
   const temp_info1 = {
@@ -81,7 +103,7 @@ function App() {
         <Header />
       </div>
       <div className="App">
-        <div style={{backgroundColor:'green;'}}className="posts-container">
+        <div style={{ backgroundColor: 'green;' }} className="posts-container">
           <div className="main-filters">
             <h4 className="filter-option">For You.</h4>
             <h4 className="filter-option">Following.</h4>

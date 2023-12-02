@@ -7,6 +7,7 @@ import { useState } from "react";
 const PostCard = (props)=> {
     let [tags, setTags] = useState({});
     let [body, setBody] = useState("");
+    
     function handleTagChange(e) {
         if(e.target.id == '0'){
             setTags({ ...tags, 0: e.target.value });

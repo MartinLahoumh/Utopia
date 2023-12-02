@@ -32,7 +32,6 @@ function SignInCtrl() {
 
     //cookies
     const [cookies, setCookie, removeCookie] = useCookies();
-    console.log(cookies);
 
     //EFFECTS**********************************************************************************
 
