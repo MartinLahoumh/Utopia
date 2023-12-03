@@ -1,5 +1,4 @@
 //hooks
-import { useState } from "react";
 import { useCookies } from 'react-cookie';
 
 //assets
@@ -13,7 +12,7 @@ import videoIcon from '../static/images/video-icon.png';
 
 //components
 import SignInCtrl from './SignInCtrl';
-import SelfProfile from "./self-profile";
+import SelfProfileCtrl from "./SelfProfileCtrl";
 import SignOutCtrl from "./SignOutCtrl";
 
 
@@ -24,7 +23,7 @@ const Header = (props) => {
   const loggedInComponent = (
     <>
       <SignOutCtrl />
-      <SelfProfile />
+      <SelfProfileCtrl info={props.info}/>
     </>
   )
 
