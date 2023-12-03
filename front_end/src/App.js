@@ -1,3 +1,4 @@
+//hooks
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { CookiesProvider } from 'react-cookie';
@@ -11,11 +12,12 @@ import mario_pfp from './static/images/mario-pfp.jpg';
 
 //methods
 import { dbAnonSignUp } from "./db methods/dbAnonSignUp";
+import { dbGetUserInfo } from "./db methods/dbGetUserInfo";
 
 //components
 import Header from './components/header';
 import ViewCard from './components/view-post-card';
-import PostCard from './components/post-card';
+import CreatePostCard from './components/CreatePostCtrl';
 import Browse from './components/browse';
 import JobCard from "./components/job-card";
 
@@ -25,17 +27,49 @@ function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
 
   //automatically create an anonymous user for the client when the app is first used
-  async function createAnonUser() {
-    if (cookies.anon_uid == null) {
-      const [anon_uid, anon_key, error] = await dbAnonSignUp();
-      console.log(anon_uid, anon_key);
-      setCookie("anon_uid", anon_uid);
-      setCookie("anon_key", anon_key);
+  useEffect(() => {
+    async function createAnonUser() {
+      if (cookies.anon_uid == null) {
+        const [anon_uid, anon_key, error] = await dbAnonSignUp();
+        setCookie("anon_uid", anon_uid);
+        setCookie("anon_key", anon_key);
+      }
+    }
+    
+    try {
+      createAnonUser();
+    } catch(error) {
+      console.log(error);
+    }
+  }, [])
+
+  //testing
+  function removeAllCookies() {
+    for (let x in cookies) {
+      removeCookie(x);
     }
   }
-  createAnonUser();
+  //removeAllCookies();
   console.log(cookies);
-  
+
+  //state
+  const [info, setInfo] = useState({});
+
+  //if the user is logged in, retrieve user info
+  //TODO: when to properly trigger this refresh??
+  useEffect(() => {
+    async function getUserInfo() {
+      if (cookies["uid"] != null) {
+        const [info, error] = await dbGetUserInfo(cookies['uid'], cookies['key']);
+        setInfo(info);
+      } else {
+        const [info, error] = await dbGetUserInfo(cookies['anon_uid'], cookies['anon_key']);
+        setInfo(info);
+      }
+    }
+    getUserInfo();
+  }, [cookies["uid"]]);
+
   let [page, setPage] = useState("ForYou") //This determines what part of the page we render. EX: For you page or Job List page
   //These are all temp values. In reality, this wont be filled up like this, you fill it up from back end. This stores all our posts
   let [posts, setPosts] = useState([{ 
@@ -82,7 +116,7 @@ function App() {
 
   let [jobs, setJobs] = useState([{}]); //Set Job Info Here
   //raw content
-  const postCard = <PostCard pfp={biden_pfp} author={"biden"} />;
+  const postCard = <CreatePostCard pfp={biden_pfp} author={"biden"} />;
 
   //display logic
   // const showPostCard = cookies.loggedIn == true ? postCard : <></>;
@@ -109,7 +143,7 @@ function App() {
       const colors = ["#fa000055","#0000fa55","#00ff005b", "#ffff0055"]
       return(
         <>
-          <PostCard pfp={biden_pfp} author='Biden' /> {/*Temp values. Replace with users pfp and name */}
+          <CreatePostCard info={info} />
           {posts.map((post) =>(
             <ViewCard pfp={post["pfp"]} author={post["author"]} body={post["body"]} color={colors[Math.floor(Math.random() * (4))]} likes={post["likes"]} tags={post["tags"]} />
           ))}
@@ -133,7 +167,7 @@ function App() {
     // wrapping the app component in a CookiesProvider allows cookies to be visible within the whole component
     <CookiesProvider>
       <div className="header-container">
-        <Header />
+        <Header info={info}/>
       </div>
       <div className="App">
         <div className="posts-container">
