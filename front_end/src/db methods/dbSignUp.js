@@ -20,7 +20,7 @@ export async function dbSignUp(password, email, pfp, bio, userType) {
         'password_hash': password_hash,
         'avatar': pfp,
         'bio': bio,
-        'user_type': userType,
+        'type': userType,
 
     }
 
