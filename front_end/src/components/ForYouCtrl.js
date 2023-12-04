@@ -94,8 +94,10 @@ function ForYouCtrl(props) {
                         const postInfo = await dbGetPostInfo(uid, key, postid);
                         newPostsInfo.push(postInfo);
 
+                        //console.log("postinfoauthor", postInfo[0]['author']);
+
                         //from the postinfo results, retrieve userinfo
-                        const userInfo = await dbGetUserInfo(uid, key, postInfo['author']);
+                        const userInfo = await dbGetUserInfo(uid, key, postInfo[0]['author']);
                         newUsersInfo.push(userInfo);
 
                         //console.log(postInfo, userInfo);
@@ -105,6 +107,8 @@ function ForYouCtrl(props) {
                 } catch (error) {
                     console.log(error)
                 } finally {
+                    //console.log("postsinfo", postsInfo);
+                    //console.log("usersinfo", usersInfo);
                     setRequestGetPostInfo(false);
                 }
             }

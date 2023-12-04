@@ -18,15 +18,11 @@ function ForYouHTML(props) {
 
                 return (
                     <>
-                        <ViewCard pfp={userContent["avatar"]}
-                            author={userContent["username"]}
-                            body={postContent["text"]}
-                            color={colors[Math.floor(Math.random() * (4))]}
-                            likes={postContent["likes"]}
-                            dislikes={postContent["dislikes"]}
-                            tags={postContent["keywords"]} 
-                            views={postContent["views"]}
-                            date={postContent["time_posted"]}/>
+                        <ViewCard 
+                            info={props.info}
+                            postContent={postContent}
+                            userContent={userContent}
+                            color={colors[Math.floor(Math.random() * (4))]}/>
 
                     </>
                 );
