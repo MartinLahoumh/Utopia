@@ -9,7 +9,7 @@ import axios from 'axios';
 
 export async function dbAnonSignUp() {
     const submission = {
-        "userType": "SURFER",
+        "type": "SURFER",
         "anonymous": true,
     }
 

@@ -142,7 +142,7 @@ function App() {
             <h4 id="Following" className="filter-option" onClick={changePage}>Following.</h4>
             <h4 id="Jobs" className="filter-option" onClick={changePage}>Jobs.</h4>
           </div>
-          {Page(page)}
+          {/*Page(page)*/}
         </div>
       </div>
       <div className='header-container browse-container'>
