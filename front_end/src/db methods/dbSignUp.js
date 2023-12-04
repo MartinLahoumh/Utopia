@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {sha256} from 'crypto-hash';
+import { sha256 } from 'crypto-hash';
 
 //sign up - creates a new user using the /users/create endpoint
 
@@ -25,11 +25,17 @@ export async function dbSignUp(password, email, pfp, bio, userType) {
     }
 
     //ping the create user endpoint
-    const response = await axios.post('http://127.0.0.1:5000/users/create', submission);
-    console.log(response);
+    try {
+        const response = await axios.post('http://127.0.0.1:5000/users/create', submission);
+        console.log(response);
 
-    let uid = response["data"]["id"];
-    let error = response["data"]["error"];
 
-    return [uid, password_hash, error];
+        let uid = response["data"]["id"];
+        let error = response["data"]["error"];
+
+        return [uid, password_hash, error];
+    } catch (error) {
+        console.log(error);
+    }
+
 }

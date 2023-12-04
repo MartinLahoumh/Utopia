@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-//create post - creates a post using the /posts/create endpoint
+//get post - gets posts using the /posts/create endpoint
 
 //uid is the user id of the user logged in 
 //key is the stored pass hash that was used to log in
@@ -10,31 +10,33 @@ import axios from 'axios';
 //result is the object that the endpoint gives back, so it would have keys corresponding to all the user columns
 //error is the error encountered, null if none
 
-export async function dbCreatePost(uid, key, text, keywords, postType) {
+export async function dbGetPosts(uid, key, limit, b4) {
 
     const submission = {
         'uid': uid,
-        'author': uid,
         'key': key,
-        'text': text,
-        'keywords': keywords,
-        'type': postType
+        'authors': null,
+        'keywords': null,
+        'likes': [0, 1000],
+        'dislikes': [0, 1000],
+        'limit': limit,
+        'before': b4
     }
 
-    console.log("request");
+    console.log("h")
     console.log(submission);
-
     //ping the endpoint
     try {
-        const response = await axios.post('http://127.0.0.1:5000/posts/create', submission);
+        const response = await axios.post('http://127.0.0.1:5000/search', submission);
         console.log(response);
 
         const error = response["data"]["error"];
-        const id = response["data"]["id"];
+        const posts = response["data"]["posts"];
+        const before = response["data"]["before"];
     
-        return [id, error];
+        return [posts, before, error];
     
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 
