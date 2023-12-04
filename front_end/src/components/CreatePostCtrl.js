@@ -8,14 +8,20 @@ import '../static/css/make-post-card.css';
 import heart from '../static/images/heart.png';
 import mario from '../static/images/mario-pfp.jpg';
 
+//methods
+import { dbCreatePost } from "../db methods/dbCreatePost";
+
 //components
 import CreatePostHTML from '../presentations/CreatePostHTML';
 
 const CreatePostCtrl = (props) => {
+    //cookies
+    const [cookies, setCookie, removeCookie] = useCookies(['uid']);
+
     //states for post content
-    let [tags, setTags] = useState({});
+    let [tags, setTags] = useState(["", "", ""]);
     let [body, setBody] = useState("");
-    let [postType, setPostType] = useState("Post"); //Making a regular post, or an ad, or a job
+    let [postType, setPostType] = useState("POST"); //Making a regular post, or an ad, or a job
     //state to trigger data request
     let [requestSendPost, setRequestSendPost] = useState(false);
 
@@ -24,7 +30,16 @@ const CreatePostCtrl = (props) => {
         async function handleSendPost() {
             if (requestSendPost) {
                 try {
-                    console.log("h");
+                    //make the post
+                    const [id, error] = await dbCreatePost(cookies['uid'], cookies['key'], body, tags, postType);
+                    console.log(id);
+
+                    //if successful, clear the fields
+                    if (error == null) {
+                        setBody("");
+                        setTags(["", "", ""]);
+                        alert("Post created.");
+                    }
                 } catch(error) {
                     console.log(error)
                 } finally {
@@ -36,16 +51,17 @@ const CreatePostCtrl = (props) => {
     }, [requestSendPost]);
 
     function handleTagChange(e) {
+        let newTags = [...tags];
         if (e.target.id == '0') {
-            setTags({ ...tags, 0: e.target.value });
+            newTags[0] = e.target.value;
         }
         else if (e.target.id == '1') {
-            setTags({ ...tags, 1: e.target.value });
+            newTags[1] = e.target.value;
         }
         else if (e.target.id == '2') {
-            setTags({ ...tags, 2: e.target.value });
+            newTags[2] = e.target.value;
         }
-
+        setTags(newTags);
     }
 
     //FUNCTIONS THAT UPDATE VALUES =======================================================================

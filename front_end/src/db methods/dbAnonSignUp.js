@@ -14,14 +14,21 @@ export async function dbAnonSignUp() {
     }
 
     //ping the create user endpoint
-    const response = await axios.post('http://127.0.0.1:5000/users/create', submission);
-    console.log(response);
+    try {
+        const response = await axios.post('http://127.0.0.1:5000/users/create', submission);
+        console.log(response);
 
-    let uid = response["data"]["id"];
-    let error = response["data"]["error"];
-    let password_hash = response["data"]["password_hash"];
+        let uid = response["data"]["id"];
+        let error = response["data"]["error"];
+        let password_hash = response["data"]["password_hash"];
+    
+        console.log("returning", uid, password_hash, error);
+    
+        return [uid, password_hash, error];
+    
+    } catch(error) {
+        console.log(error);
+    }
 
-    console.log("returning", uid, password_hash, error);
 
-    return [uid, password_hash, error];
 }

@@ -1,5 +1,5 @@
 const SelfProfileHTML = (props) => {
-    console.log(props.info);
+    //console.log(props.info);
 
     return (
         <>
