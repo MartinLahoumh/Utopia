@@ -1,32 +1,33 @@
+//assets
 import '../static/css/post-card.css';
 import '../static/css/make-post-card.css';
 import heart from '../static/images/heart.png';
 import mario from '../static/images/mario-pfp.jpg';
 
 const CreatePostHTML = (props) => {
+    const username = props.info['type'] == null ? 'Anon' : props.info['username'];
 
-    //postPicker (corporate only)
-    const postPicker = 'Not Corporate' == 'Corporate' ? //NEED TO ADJUST THIS ONCE ITS WORKING
+    const postPicker = props.info['type'] == 'CORPORATE' ?
         (<div className='post-type'>
             <h3>Type: </h3>
             <div className='option-tag'>
                 <label>Post</label>
-                <input onClick={props.handlePostTypeChange} type="radio" name='post-option' value="Post"></input>
+                <input onClick={props.handlePostTypeChange} type="radio" name='post-option' value="POST"></input>
             </div>
             <div className='option-tag'>
                 <label>Ad</label>
-                <input onClick={props.handlePostTypeChange} type="radio" name='post-option' value="Ad"></input>
+                <input onClick={props.handlePostTypeChange} type="radio" name='post-option' value="AD"></input>
             </div>
             <div className='option-tag'>
                 <label>Job</label>
-                <input onClick={props.handlePostTypeChange} type="radio" name='post-option' value="Job"></input>
+                <input onClick={props.handlePostTypeChange} type="radio" name='post-option' value="JOB"></input>
             </div>
         </div>) : null
 
     //postBody
     let postBody = null;
     switch (props.postType) {
-        case 'Post':
+        case 'POST':
             postBody = (
                 <>
                     <textarea className='post-card-body' value={props.body} onChange={props.handleBodyChange} />
@@ -39,7 +40,7 @@ const CreatePostHTML = (props) => {
                 </>
             )
             break;
-        case 'Ad':
+        case 'AD':
             postBody = (
                 <>
                     <label>URL</label>
@@ -52,7 +53,7 @@ const CreatePostHTML = (props) => {
                 </>
             )
             break;
-        case 'Job':
+        case 'JOB':
             postBody = (
                 <>
                     <label>Position</label>
@@ -76,7 +77,7 @@ const CreatePostHTML = (props) => {
                     <img className='card-pfp-img' src={props.info["avatar"]} alt="wah" />
                     {/* author */}
                     <div className='card-author-container'>
-                        <h4 className='card-author'>{props.info["username"]}</h4>
+                        <h4 className='card-author'>{username}</h4>
                     </div>
                     {/* tags */}
                     <div className="tags">
@@ -100,7 +101,7 @@ const CreatePostHTML = (props) => {
                 Upon a user picking their image to upload, you will need to connect it to an image endpoint in the back end
                 so that the image gets saved to the backend side, and we can access it from there. Create an array of string called 'imgArr'.
                 Each element of this should be the img url that we will send to the back end upon uploading.*/}
-                    <input style={{ opacity: "0%" }} onChange={"placeholder"} type="file" name="img" id="img-upload" hidden />
+                    <input style={{ opacity: "0%" }} onChange={() => { }} type="file" name="img" id="img-upload" hidden />
                     <label style={{ width: '20%', height: '3.5vh', marginBottom: "10px", display: 'flex', justifyContent: 'center', alignItems: 'center' }} for='img-upload' className="main-button">
                         Upload Media
                     </label>
