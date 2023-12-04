@@ -1,22 +1,16 @@
-import axios from "axios";
+import { dbGetUserInfo } from "./dbGetUserInfo";
 
 async function dbCheckFollow(uid, key, targetid) {
-  let submission = {
-    "uid": uid,
-    "key": key,
-    "target_id": targetid
-  };
 
   try {
-    const response = await axios.post('http://127.0.0.1:5000', submission);
-    const isFollowing = response.data.isFollowing || false;
-    const error = response.data.error || null;
+    const [result, error] = await dbGetUserInfo(uid, key);
+    const following = result['following'];
+    const isFollowing = following.includes(targetid);
 
-    return { isFollowing, error };
+    return [ isFollowing, error ];
 
   } catch (error) {
     console.error(error);
-    return { isFollowing: false, error: error.message };
   }
 }
 
