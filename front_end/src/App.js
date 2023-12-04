@@ -31,7 +31,7 @@ function App() {
     }
   }
   //removeAllCookies();
-  console.log("cookies", cookies);
+  //console.log("cookies", cookies);
   //automatically create an anonymous user for the client when the app is first used
   useEffect(() => {
     async function createAnonUser() {
@@ -73,12 +73,12 @@ function App() {
         const [info, error] = await dbGetUserInfo(uid, key, uid);
         const [balance, error2] = await dbGetBalance(uid, key);
 
-        console.log("balance", balance, error2);
+        //console.log("balance", balance, error2);
 
         info["balance"] = balance;
 
         setInfo(info);
-        console.log("info", info);
+        //console.log("info", info);
       } catch (error) {
         console.log(error);
       }
