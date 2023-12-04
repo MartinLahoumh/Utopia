@@ -61,7 +61,6 @@ function SignInCtrl() {
                 try {
                     //ping the signin endpoint
                     const [uid, password_hash, error] = await dbSignIn(password, email);
-                    console.log("hi");
                     //try to set the cookies based on response data, if it was successful
                     doLoginBehavior(error, uid, password_hash, "Successfully signed in.", "Sign in failed. Error: " + error)
                 } catch (error) {
@@ -102,13 +101,11 @@ function SignInCtrl() {
     //function that toggles the hasAccount state
     function toggleHasAccount() {
         setHasAccount((prev) => !prev);
-        console.log(hasAccount); //placeholder
     };
 
     //function that toggles the showPanel state
     function toggleShowPanel() {
         setShowPanel((prev) => !prev);
-        console.log(showPanel); //placeholder
     }
 
     //function that updates email on event
