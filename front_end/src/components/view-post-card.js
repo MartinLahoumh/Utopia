@@ -57,7 +57,7 @@ const ViewCard = (props) => {
                     <img className="card-pfp-img likes" src={heart} />
                     <p className="like-count">{props.likes}</p>
                     <img className="card-pfp-img likes" src={brokenHeart} />
-                    <p className="like-count">{props.likes}</p>
+                    <p className="like-count">{props.dislikes}</p>
 
                 </div>
                 <div style={{ backgroundColor: props.color }} className='card-body'>
@@ -68,8 +68,8 @@ const ViewCard = (props) => {
                     <div className='follow-button-post'>Block</div>
                     <div className='follow-button-post'>Report</div>
                     <div className='follow-button-post'>Tip</div>
-                    <div>Views</div>
-                    <div>Date</div>
+                    <div>Views: {props.views}</div>
+                    <div>Date: {props.date}</div>
                 </div>
             </div>
             {Comments(commentClick, setCommentClick)}
