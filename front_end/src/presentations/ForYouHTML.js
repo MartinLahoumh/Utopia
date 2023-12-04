@@ -14,7 +14,7 @@ function ForYouHTML(props) {
             {props.postsInfo.map((post, index) => {
                 const postContent = post[0];
                 const userContent = props.usersInfo[index][0];
-                console.log(postContent, userContent);
+                //console.log(postContent, userContent);
 
                 return (
                     <>
