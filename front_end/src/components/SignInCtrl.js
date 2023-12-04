@@ -8,6 +8,7 @@ import tempPfp from '../static/images/anon-pfp.jpg';
 //methods
 import { dbSignIn } from "../db methods/dbSignIn";
 import { dbSignUp } from "../db methods/dbSignUp";
+import { dbCreateBalance } from "../db methods/dbCreateBalance";
 
 //components
 import SignInHTML from "../presentations/SignInHTML";
@@ -81,8 +82,13 @@ function SignInCtrl() {
                     //ping the create user endpoint
                     const [uid, password_hash, error] = await dbSignUp(password, email, pfp, bio, userType);
 
+
                     //try to set the cookies based on response data, if it was successful
                     doLoginBehavior(error, uid, password_hash, "Account Successfully Created! Have Fun!", "Error creating user: " + error)
+
+                    //next, create a balance for the user
+                    const error2 = await dbCreateBalance(uid, password_hash);
+                    console.log("balance creation", error2);
                 } catch (error) {
                     console.log(error);
                 } finally {

@@ -9,7 +9,7 @@ import './App.css';
 //methods
 import { dbAnonSignUp } from "./db methods/dbAnonSignUp";
 import { dbGetUserInfo } from "./db methods/dbGetUserInfo";
-import { dbGetPosts } from "./db methods/dbGetPosts";
+import { dbGetBalance } from "./db methods/dbGetBalance";
 
 //components
 import Header from './components/header';
@@ -31,7 +31,7 @@ function App() {
     }
   }
   //removeAllCookies();
-  //console.log("cookies", cookies);
+  console.log("cookies", cookies);
   //automatically create an anonymous user for the client when the app is first used
   useEffect(() => {
     async function createAnonUser() {
@@ -68,9 +68,21 @@ function App() {
     async function getUserInfo() {
       const [uid, key] = whichCookies();
       //console.log("info being used:", uid, key)
-      
-      const [info, error] = await dbGetUserInfo(uid, key, uid);
+
+      try {
+        const [info, error] = await dbGetUserInfo(uid, key, uid);
+        const [balance, error2] = await dbGetBalance(uid, key);
+
+        console.log("balance", balance, error2);
+
+        info["balance"] = balance;
+
         setInfo(info);
+        console.log("info", info);
+      } catch (error) {
+        console.log(error);
+      }
+
     }
     getUserInfo();
   }, [cookies["uid"]]);
@@ -89,7 +101,7 @@ function App() {
       </div>
       <div className="App">
         {/* prop drilling; change whichCookies to a context later */}
-        <PageCtrl info={info} whichCookies={whichCookies}/>
+        <PageCtrl info={info} whichCookies={whichCookies} />
       </div>
       <div className='header-container browse-container'>
         <Browse />
