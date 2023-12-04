@@ -33,7 +33,7 @@ const CreatePostCtrl = (props) => {
                 try {
                     //make the post
                     const [id, error] = await dbCreatePost(cookies['uid'], cookies['key'], body, tags, postType);
-                    console.log(id);
+                    //console.log(id);
 
                     //if successful, clear the fields
                     if (error == null) {
