@@ -88,7 +88,7 @@ function SignInCtrl() {
 
                     //next, create a balance for the user
                     const error2 = await dbCreateBalance(uid, password_hash);
-                    console.log("balance creation", error2);
+                    //console.log("balance creation", error2);
                 } catch (error) {
                     console.log(error);
                 } finally {
