@@ -32,22 +32,21 @@ function SignInCtrl() {
 
     //cookies
     const [cookies, setCookie, removeCookie] = useCookies();
-    console.log(cookies);
 
     //EFFECTS**********************************************************************************
 
     //helper function that sets cookies and generates alerts for signing in and up
-    function doLoginBehavior(error, uid, password_hash, successAlert, failureAlert){
+    function doLoginBehavior(error, uid, password_hash, successAlert, failureAlert) {
         if (error == null) {
-                    //these two are needed for db queries
+            //these two are needed for db queries
             setCookie("uid", uid);
             setCookie("key", password_hash);
-                    //this is needed for front end renders. If this cookie is null (doesn't exist), then the user is not logged in.
-                    setCookie("loggedIn", true);
-                    
-                    //reset fields after processing
-                    setEmail("");
-                    setPassword("");
+            //this is needed for front end renders. If this cookie is null (doesn't exist), then the user is not logged in.
+            setCookie("loggedIn", true);
+
+            //reset fields after processing
+            setEmail("");
+            setPassword("");
             alert(successAlert);
         } else {
             alert(failureAlert);
@@ -92,7 +91,7 @@ function SignInCtrl() {
             }
         }
 
-        handleSignUp();    
+        handleSignUp();
     }, [requestSignUp, password, email, bio, pfp, userType]);
 
 
@@ -152,7 +151,7 @@ function SignInCtrl() {
 
     return (
         <>
-            <SignInHTML 
+            <SignInHTML
                 showPanel={showPanel} toggleShowPanel={toggleShowPanel}
                 hasAccount={hasAccount} toggleHasAccount={toggleHasAccount}
                 triggerSignIn={triggerSignIn} triggerSignUp={triggerSignUp}
