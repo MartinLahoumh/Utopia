@@ -13,7 +13,7 @@ export async function dbGetBalance(uid, key) {
     //ping the endpoint
     try {
         const response = await axios.post('http://127.0.0.1:5000/balance/view', submission);
-        console.log(response);
+        //console.log(response);
 
         const error = response["data"]["error"];
         const balance = response["data"]["balance"];
