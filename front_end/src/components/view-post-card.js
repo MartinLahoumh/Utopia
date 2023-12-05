@@ -68,7 +68,10 @@ const ViewCard = (props) => {
                     <h3>{props.postContent["text"]}</h3>
                 </div>
                 <div className='card-header'>
-                    {cookies["loggedIn"] ? <FollowCtrl info={props.info["following"]} target={props.userContent["id"]} /> : null}
+                    {cookies["loggedIn"] ? <FollowCtrl info={props.info["following"]} 
+                                                       target={props.postContent["author"]} 
+                                                       whichCookies={props.whichCookies}
+                                                       triggerGetUserInfo={props.triggerGetUserInfo}/> : null}
                     {cookies["loggedIn"] ? <div className='follow-button-post'>Block</div> : null}
                     <div className='follow-button-post'>Report</div>
                     {cookies["loggedIn"] ? <div className='follow-button-post'>Tip</div> : null}

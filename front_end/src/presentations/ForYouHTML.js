@@ -14,7 +14,7 @@ function ForYouHTML(props) {
             {props.postsInfo.map((post, index) => {
                 const postContent = post[0];
                 const userContent = props.usersInfo[index][0];
-                //console.log(postContent, userContent);
+                //console.log(userContent);
 
                 return (
                     <>
@@ -22,7 +22,9 @@ function ForYouHTML(props) {
                             info={props.info}
                             postContent={postContent}
                             userContent={userContent}
-                            color={colors[Math.floor(Math.random() * (4))]}/>
+                            color={colors[Math.floor(Math.random() * (4))]}
+                            whichCookies={props.whichCookies}
+                            triggerGetUserInfo={props.triggerGetUserInfo}/>
 
                     </>
                 );

@@ -20,10 +20,6 @@ function App() {
   //cookies
   const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
 
-  //states
-  const [info, setInfo] = useState({}); //stores user information
-
-  //hooks
   //testing
   function removeAllCookies() {
     for (let x in cookies) {
@@ -62,30 +58,52 @@ function App() {
     return [uid, key];
   }
 
+  //RETRIEVING USER INFO ==============================================================================
+
+  //states
+  const [info, setInfo] = useState({}); //stores user information
+  //state to handle triggering getting user info
+  const [requestGetUserInfo, setRequestGetUserInfo] = useState(false);
+
   //if the user is logged in, retrieve user info
   //TODO: when to properly trigger this refresh??
   useEffect(() => {
     async function getUserInfo() {
-      const [uid, key] = whichCookies();
-      //console.log("info being used:", uid, key)
+      if (requestGetUserInfo) {
+        const [uid, key] = whichCookies();
+        //console.log("info being used:", uid, key)
 
-      try {
-        const [info, error] = await dbGetUserInfo(uid, key, uid);
-        const [balance, error2] = await dbGetBalance(uid, key);
+        try {
+          const [info, error] = await dbGetUserInfo(uid, key, uid);
+          const [balance, error2] = await dbGetBalance(uid, key);
 
-        //console.log("balance", balance, error2);
+          //console.log("balance", balance, error2);
 
-        info["balance"] = balance;
+          info["balance"] = balance;
 
-        setInfo(info);
-        //console.log("info", info);
-      } catch (error) {
-        console.log(error);
+          setInfo(info);
+          //console.log("info", info);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setRequestGetUserInfo(false);
+        }
       }
 
     }
     getUserInfo();
-  }, [cookies["uid"]]);
+  }, [requestGetUserInfo]);
+
+  //WHEN TO TRIGGER GETTING USER INFO ==============================================================================
+  //effect hook that gets user info when the page is first loaded
+  useEffect(() => {
+    setRequestGetUserInfo(true);
+  }, [])
+
+  //function that also triggers getting user info (for manual refresh)
+  function triggerGetUserInfo() {
+    setRequestGetUserInfo(true);
+  }
 
   //display logic
 
@@ -101,7 +119,7 @@ function App() {
       </div>
       <div className="App">
         {/* prop drilling; change whichCookies to a context later */}
-        <PageCtrl info={info} whichCookies={whichCookies} />
+        <PageCtrl info={info} whichCookies={whichCookies} triggerGetUserInfo={triggerGetUserInfo}/>
       </div>
       <div className='header-container browse-container'>
         <Browse />

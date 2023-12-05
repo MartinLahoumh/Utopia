@@ -162,7 +162,9 @@ function ForYouCtrl(props) {
     return (
         <>
             <ForYouHTML info={props.info} triggerGetInitialPosts={triggerGetInitialPosts}
-                postsInfo={postsInfo} usersInfo={usersInfo} />
+                postsInfo={postsInfo} usersInfo={usersInfo} 
+                whichCookies={props.whichCookies}
+                triggerGetUserInfo={props.triggerGetUserInfo}/>
         </>
     )
 }
