@@ -7,7 +7,7 @@ import mario from '../static/images/mario-pfp.jpg';
 const CreatePostHTML = (props) => {
     const username = props.info['username'];
 
-    const postPicker = props.info['type'] == 'CORPORATE' ?
+    const postPicker = JSON.stringify(props.info['type']) == '["ANON","CORPORATE","ORDINARY","SURFER"]' ? //way to check that type is corporate
         (<div className='post-type'>
             <h3>Type: </h3>
             <div className='option-tag'>
@@ -22,7 +22,7 @@ const CreatePostHTML = (props) => {
                 <label>Job</label>
                 <input onClick={props.handlePostTypeChange} type="radio" name='post-option' value="JOB"></input>
             </div>
-        </div>) : null
+        </div>) : null;
 
     //postBody
     let postBody = null;
