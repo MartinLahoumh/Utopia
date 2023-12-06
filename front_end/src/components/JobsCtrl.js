@@ -77,7 +77,7 @@ function JobsCtrl(props) {
                     setUsersInfo(newUsersInfo);
                 } catch (error) {
                     console.log(error);
-                } finally {   //honestly this after this part i used chatgpt so i can go to sleep 
+                } finally { 
                     setRequestGetJobInfo(false);
                 }
             }
