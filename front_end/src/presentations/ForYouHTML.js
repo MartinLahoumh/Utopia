@@ -8,13 +8,13 @@ function ForYouHTML(props) {
     return (
         <>
             {/* component that allows you to make a new post */}
-            <CreatePostCtrl info={props.info} triggerGetInitialPosts={props.triggerGetInitialPosts} />
+            <CreatePostCtrl info={props.info} triggerGetInitialPosts={props.triggerGetInitialPosts} whichCookies={props.whichCookies}/>
 
             {/* turn each post info into a post card component */}
             {props.postsInfo.map((post, index) => {
                 const postContent = post[0];
                 const userContent = props.usersInfo[index][0];
-                //console.log(userContent);
+                console.log(postContent, userContent);
 
                 return (
                     <>
@@ -24,7 +24,8 @@ function ForYouHTML(props) {
                             userContent={userContent}
                             color={colors[Math.floor(Math.random() * (4))]}
                             whichCookies={props.whichCookies}
-                            triggerGetUserInfo={props.triggerGetUserInfo}/>
+                            triggerGetUserInfo={props.triggerGetUserInfo}
+                            triggerGetPostInfo={props.triggerGetPostInfo}/>
 
                     </>
                 );

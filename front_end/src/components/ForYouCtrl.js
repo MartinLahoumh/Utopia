@@ -51,7 +51,7 @@ function ForYouCtrl(props) {
                     setPosts(posts);
 
                     //now, convert post ids to info by triggering the other effect hook
-                    setRequestGetPostInfo(true);
+                    triggerGetPostInfo();
                 } catch (error) {
                     console.log(error);
                 } finally {
@@ -116,6 +116,13 @@ function ForYouCtrl(props) {
         handleGetPostsInfo();
     }, [requestGetPostInfo])
 
+    //WHEN TO TRIGGER GETTING POST INFO ==============================================================================
+
+    //function that  triggers getting post info (for manual refresh)
+    function triggerGetPostInfo() {
+        setRequestGetPostInfo(true);
+    }
+
     //These are all temp values. In reality, this wont be filled up like this, you fill it up from back end. This stores all our posts
     const [tempPosts, setTempPosts] = useState([{
         "pfp": biden_pfp,
@@ -164,7 +171,8 @@ function ForYouCtrl(props) {
             <ForYouHTML info={props.info} triggerGetInitialPosts={triggerGetInitialPosts}
                 postsInfo={postsInfo} usersInfo={usersInfo} 
                 whichCookies={props.whichCookies}
-                triggerGetUserInfo={props.triggerGetUserInfo}/>
+                triggerGetUserInfo={props.triggerGetUserInfo}
+                triggerGetPostInfo={triggerGetPostInfo}/>
         </>
     )
 }

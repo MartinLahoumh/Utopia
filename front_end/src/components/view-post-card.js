@@ -1,9 +1,10 @@
 import '../static/css/post-card.css';
-import heart from '../static/images/heart.png';
 import brokenHeart from '../static/images/broken-heart.png';
 import { useState } from "react";
 import { useCookies } from 'react-cookie';
 import FollowCtrl from './FollowCtrl';
+import LikeCtrl from './LikeCtrl';
+import DislikeCtrl from './DislikeCtrl';
 
 const Comments = (comment, setComment) => {
     if (comment) {
@@ -58,9 +59,25 @@ const ViewCard = (props) => {
                             </div>
                         ))}
                     </div>
-                    <img className="card-pfp-img likes" src={heart} />
+                    {/* the likes button */}
+                    {cookies['loggedIn'] ? <LikeCtrl info={props.info['liked_posts']}
+                                                     target={props.postContent['id']}
+                                                     author={props.postContent['author']}
+                                                     whichCookies={props.whichCookies}
+                                                     triggerGetUserInfo={props.triggerGetUserInfo}
+                                                     triggerGetPostInfo={props.triggerGetPostInfo}/> : null}
+                    {/* label that only shows up for surfers */}
+                    {cookies['loggedIn'] ? "" : "Likes: "}
                     <p className="like-count">{props.postContent["likes"]}</p>
-                    <img className="card-pfp-img likes" src={brokenHeart} />
+                    {/* the dislikes button */}
+                    {cookies['loggedIn'] ? <DislikeCtrl info={props.info['disliked_posts']}
+                                                     target={props.postContent['id']}
+                                                     author={props.postContent['author']}
+                                                     whichCookies={props.whichCookies}
+                                                     triggerGetUserInfo={props.triggerGetUserInfo}
+                                                     triggerGetPostInfo={props.triggerGetPostInfo}/> : null}
+                    {/* label that only shows up for surfers */}
+                    {cookies['loggedIn'] ? "" : "_Dislikes: "}
                     <p className="like-count">{props.postContent["dislikes"]}</p>
 
                 </div>
