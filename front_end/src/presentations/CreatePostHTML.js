@@ -5,7 +5,7 @@ import heart from '../static/images/heart.png';
 import mario from '../static/images/mario-pfp.jpg';
 
 const CreatePostHTML = (props) => {
-    const username = props.info['type'] == null ? 'Anon' : props.info['username'];
+    const username = props.info['username'];
 
     const postPicker = props.info['type'] == 'CORPORATE' ?
         (<div className='post-type'>

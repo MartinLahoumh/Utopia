@@ -30,9 +30,12 @@ const CreatePostCtrl = (props) => {
     useEffect(() => {
         async function handleSendPost() {
             if (requestSendPost) {
+                //get the right cookies
+                const [uid, key] = props.whichCookies();
+
                 try {
                     //make the post
-                    const [id, error] = await dbCreatePost(cookies['uid'], cookies['key'], body, tags, postType);
+                    const [id, error] = await dbCreatePost(uid, key, body, tags, postType);
                     //console.log(id);
 
                     //if successful, clear the fields
@@ -44,7 +47,7 @@ const CreatePostCtrl = (props) => {
 
                     //next, refresh the posts
                     props.triggerGetInitialPosts();
-                } catch(error) {
+                } catch (error) {
                     console.log(error)
                 } finally {
                     setRequestSendPost(false);
@@ -87,11 +90,11 @@ const CreatePostCtrl = (props) => {
     return (
         <>
             <CreatePostHTML postType={postType} handlePostTypeChange={handlePostTypeChange}
-                            body={body} handleBodyChange={handleBodyChange}
-                            tags={tags} handleTagChange={handleTagChange}
-                            info={props.info}
-                            color={props.color}
-                            triggerSendPost={triggerSendPost}/>
+                body={body} handleBodyChange={handleBodyChange}
+                tags={tags} handleTagChange={handleTagChange}
+                info={props.info}
+                color={props.color}
+                triggerSendPost={triggerSendPost} />
         </>
     );
 }
