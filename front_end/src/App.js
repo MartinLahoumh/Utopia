@@ -27,7 +27,14 @@ function App() {
   //states
   const [info, setInfo] = useState({}); //stores user information
   //hooks
-
+  //testing
+  function removeAllCookies() {
+    for (let x in cookies) {
+      removeCookie(x);
+    }
+  }
+  //removeAllCookies();
+  //console.log("cookies", cookies);
   //automatically create an anonymous user for the client when the app is first used
   useEffect(() => {
     async function createAnonUser() {
@@ -45,27 +52,28 @@ function App() {
     }
   }, [])
 
-  //testing
-  function removeAllCookies() {
-    for (let x in cookies) {
-      removeCookie(x);
-    }
-  }
-  //removeAllCookies();
-  console.log(cookies);
 
+  //function to decide which cookies to use
+  function whichCookies() {
+
+    let uid = cookies['uid'];
+    let key = cookies['key'];
+    if (cookies['uid'] == null) {
+      uid = cookies['anon_uid'];
+      key = cookies['anon_key'];
+    }
+    return [uid, key];
+  }
 
   //if the user is logged in, retrieve user info
   //TODO: when to properly trigger this refresh??
   useEffect(() => {
     async function getUserInfo() {
-      if (cookies["uid"] != null) {
-        const [info, error] = await dbGetUserInfo(cookies['uid'], cookies['key']);
+      const [uid, key] = whichCookies();
+      //console.log("info being used:", uid, key)
+      
+      const [info, error] = await dbGetUserInfo(uid, key, uid);
         setInfo(info);
-      } else {
-        const [info, error] = await dbGetUserInfo(cookies['anon_uid'], cookies['anon_key']); //currently won't return anything due to lack of user perms on anons
-        setInfo(info);
-      }
     }
     getUserInfo();
   }, [cookies["uid"]]);
@@ -84,7 +92,8 @@ function App() {
         <Header info={info} />
       </div>
       <div className="App">
-        <PageCtrl info={info} />
+        {/* prop drilling; change whichCookies to a context later */}
+        <PageCtrl info={info} whichCookies={whichCookies}/>
       </div>
       <div className='header-container browse-container'>
         <Browse />

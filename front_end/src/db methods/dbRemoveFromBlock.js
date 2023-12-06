@@ -5,16 +5,16 @@ async function dbRemoveFromBlock(uid, key, targetid) {
   let submission = {
     "uid": uid,
     "key": key,
-    "target_user": targetid
+    "blocked_id": targetid
   };
 
   try {
-    const response = await axios.post('http://127.0.0.1:5000', submission);
+    const response = await axios.post('http://127.0.0.1:5000/users/unblock', submission);
     const error = response.data.error || null;
-    return { error };
+    return error;
 
   } catch (error) {
-    return { error: error.message };
+    console.log(error);
   }
 }
 

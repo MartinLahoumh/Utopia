@@ -26,6 +26,7 @@ const CreatePostCtrl = (props) => {
     let [requestSendPost, setRequestSendPost] = useState(false);
 
 
+    //effect hooks that actually sends the post to the database
     useEffect(() => {
         async function handleSendPost() {
             if (requestSendPost) {
@@ -40,6 +41,9 @@ const CreatePostCtrl = (props) => {
                         setTags(["", "", ""]);
                         alert("Post created.");
                     }
+
+                    //next, refresh the posts
+                    props.triggerGetInitialPosts();
                 } catch(error) {
                     console.log(error)
                 } finally {

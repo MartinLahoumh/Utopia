@@ -9,16 +9,18 @@ import axios from 'axios';
 //result is the object that the endpoint gives back, so it would have keys corresponding to all the user columns
 //error is the error encountered, null if none
 
-export async function dbGetUserInfo(uid, key) {
+export async function dbGetUserInfo(uid, key, targetId) {
 
     const submission = {
         'uid': uid,
         'key': key,
+        'id': targetId
     }
+    //console.log(submission);
     //ping the signin endpoint
     try {
         const response = await axios.post('http://127.0.0.1:5000/users/info', submission);
-        console.log(response);
+        //console.log(response);
 
         let result = response["data"];
         const error = result["error"];
