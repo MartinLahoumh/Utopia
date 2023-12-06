@@ -15,7 +15,7 @@ function PageHTML(props) {
     else if (props.page == 'Jobs') {
         pageContent = <JobsCtrl />
     }
-    else if(props.paeg == 'Account'){
+    else if(props.page == 'Account'){
         pageContent = (
         <>
             <AccountPage />
