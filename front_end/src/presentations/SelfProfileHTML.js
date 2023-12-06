@@ -16,6 +16,12 @@ const SelfProfileHTML = (props) => {
                         {key}: {props.info[key]} <br/>
                     </>
                 ))}
+                <button className="main-button" onClick={props.handleValueSubmit}>Tip</button>
+                <input type="number" id="tip-amount" name="tip-amount" step="1" onChange={props.handleTipChange} value={props.amtTip} />
+                
+                <button className="main-button" onClick={props.handleValueSubmit}>Add Balance</button>
+                <input type="number" id="balance-amount" name="balance-amount" step="1" onChange={props.handleBalanceChange}value={props.amtBalance}/>
+                <p>{props.amtBalance}</p>
             </div>
         </>
     )
