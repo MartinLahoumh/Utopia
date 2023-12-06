@@ -1,7 +1,7 @@
 //components
 import JobsCtrl from '../components/JobsCtrl';
 import ForYouCtrl from "../components/ForYouCtrl";
-
+import AccountPage from '../components/account-page';
 function PageHTML(props) {
     //display logic
 
@@ -12,10 +12,19 @@ function PageHTML(props) {
     if (props.page == 'ForYou') {
         pageContent = <ForYouCtrl info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>
     }
+    else if (props.page == "Following") {
+        //pageContent = <FollowingCtrl info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>;
+    }
     else if (props.page == 'Jobs') {
         pageContent = <JobsCtrl />
     }
-
+    else if(props.page == 'Account'){
+        pageContent = (
+        <>
+            <AccountPage />
+        </>
+        )
+    }
     return (
         <>
             <div className="posts-container">
