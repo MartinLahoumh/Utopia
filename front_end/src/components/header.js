@@ -22,12 +22,12 @@ const Header = (props) => {
 
   const loggedInComponent = (
     <>
-      <SignOutCtrl />
+      <SignOutCtrl triggerGetAnonUserInfo={props.triggerGetAnonUserInfo}/>
       <SelfProfileCtrl info={props.info}/>
     </>
   )
 
-  const loggedOutComponent = <SignInCtrl />;
+  const loggedOutComponent = <SignInCtrl triggerGetUserInfo={props.triggerGetUserInfo}/>;
 
   return (
     <>

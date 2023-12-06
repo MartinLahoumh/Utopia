@@ -16,11 +16,11 @@ export async function dbGetUserInfo(uid, key, targetId) {
         'key': key,
         'id': targetId
     }
-    //console.log(submission);
+    //console.log("request", submission);
     //ping the signin endpoint
     try {
         const response = await axios.post('http://127.0.0.1:5000/users/info', submission);
-        //console.log(response);
+        //console.log("getting user info", response);
 
         let result = response["data"];
         const error = result["error"];
