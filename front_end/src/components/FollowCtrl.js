@@ -28,6 +28,7 @@ function FollowCtrl(props) {
     const [requestUnfollow, setRequestUnfollow] = useState(false);
 
     const [me] = props.whichCookies();
+    const you = props.target;
 
 
     //FOLLOWING ============================================================================
@@ -35,7 +36,7 @@ function FollowCtrl(props) {
     //effect hook that processes a follow request
     useEffect(() => {
         async function handleFollow() {
-            if (requestFollow) {
+            if (requestFollow && me != you) {
                 const [uid, key] = props.whichCookies();
 
                 try {
