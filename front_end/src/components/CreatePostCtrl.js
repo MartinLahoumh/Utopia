@@ -22,6 +22,8 @@ const CreatePostCtrl = (props) => {
     let [tags, setTags] = useState(["", "", ""]);
     let [body, setBody] = useState("");
     let [postType, setPostType] = useState("POST"); //Making a regular post, or an ad, or a job
+    let [images, setImages] = useState([null, null]);
+    
     //state to trigger data request
     let [requestSendPost, setRequestSendPost] = useState(false);
 
@@ -32,13 +34,14 @@ const CreatePostCtrl = (props) => {
             if (requestSendPost) {
                 try {
                     //make the post
-                    const [id, error] = await dbCreatePost(cookies['uid'], cookies['key'], body, tags, postType);
+                    const [id, error] = await dbCreatePost(cookies['uid'], cookies['key'], body, tags, postType, images);
                     console.log(id);
 
                     //if successful, clear the fields
                     if (error == null) {
                         setBody("");
                         setTags(["", "", ""]);
+                        setImages([null, null]);
                         alert("Post created.");
                     }
 
@@ -54,6 +57,11 @@ const CreatePostCtrl = (props) => {
         handleSendPost();
     }, [requestSendPost]);
 
+    //just to log images
+    useEffect(()=>{
+        console.log(images); 
+    }, [images])
+
     function handleTagChange(e) {
         let newTags = [...tags];
         if (e.target.id == '0') {
@@ -66,6 +74,21 @@ const CreatePostCtrl = (props) => {
             newTags[2] = e.target.value;
         }
         setTags(newTags);
+    }
+
+    const handleImageChange = (value)=>{
+        let newImages = [...images];
+        if(images[0] == null){
+            newImages[0] = value;
+        }
+        else if(images[1] == null){
+        newImages[1] = value;
+        }
+        else{
+        alert("YOU HAVE TO MANY IMAGES, CAN NOT BE UPLOADED!!");
+        }
+        console.log(newImages);
+        setImages(newImages);
     }
 
     //FUNCTIONS THAT UPDATE VALUES =======================================================================
@@ -89,6 +112,7 @@ const CreatePostCtrl = (props) => {
             <CreatePostHTML postType={postType} handlePostTypeChange={handlePostTypeChange}
                             body={body} handleBodyChange={handleBodyChange}
                             tags={tags} handleTagChange={handleTagChange}
+                            images={images} handleImageChange={handleImageChange}
                             info={props.info}
                             color={props.color}
                             triggerSendPost={triggerSendPost}/>

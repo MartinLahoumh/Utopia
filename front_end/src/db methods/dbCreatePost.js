@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //create post - creates a post using the /posts/create endpoint
 
-export async function dbCreatePost(uid, key, text, keywords, postType) {
+export async function dbCreatePost(uid, key, text, keywords, postType, images) {
 
     const submission = {
         'uid': uid,
@@ -10,7 +10,8 @@ export async function dbCreatePost(uid, key, text, keywords, postType) {
         'key': key,
         'text': text,
         'keywords': keywords,
-        'type': postType
+        'type': postType,
+        'images': images
     }
 
     //ping the endpoint
