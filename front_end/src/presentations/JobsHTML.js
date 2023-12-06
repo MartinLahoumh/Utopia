@@ -1,27 +1,37 @@
-//assets
-import biden_pfp from '../static/images/biden-pfp.jpg';
-import kojima_pfp from '../static/images/kojima-pfp.jpg';
-import mario_pfp from '../static/images/mario-pfp.jpg';
-
-//components
 import JobCard from '../components/job-card';
 
-function JobsHTML(props) {
+import React from 'react';
+import ViewCard from '../components/view-post-card';
 
-    const tempRequirments = ['Good work ethic', 'team player'];
+function JobsHTML(props) {
+    const colors = ["#006949FF", "#0000fa55", "#00ff005b", "#ffff0055"];
 
     return (
         <>
-            <div className="job-posts-container">
-                {/*Like with users, once you get the jobs, map it. I just made it temp values for demonstration purposes */}
-                <JobCard jobIcon={biden_pfp} position="President" requirements={tempRequirments} />
-                <JobCard jobIcon={biden_pfp} position="President" requirements={tempRequirments} />
-                <JobCard jobIcon={biden_pfp} position="President" requirements={tempRequirments} />
-                <JobCard jobIcon={biden_pfp} position="President" requirements={tempRequirments} />
-            </div>
+            {props.postsInfo.map((post, index) => {
+                // Assuming the structure of post and user info is similar to the previous components
+                const postContent = post[0]; // post data
+                const userContent = props.usersInfo[index][0]; // user data
 
+                // Filtering only 'job' type posts
+                if (postContent.type === 'JOB') {
+                    return (
+                        <ViewCard 
+                            info={props.info}
+                            postContent={postContent}
+                            userContent={userContent}
+                            color={colors[Math.floor(Math.random() * colors.length)]}
+                            whichCookies={props.whichCookies}
+                            triggerGetUserInfo={props.triggerGetUserInfo}
+                        />
+                    );
+                } else {
+                    return null; // Skip non-job posts
+                }
+            })}
         </>
-    )
+    );
 }
 
 export default JobsHTML;
+
