@@ -19,7 +19,6 @@ function PageCtrl(props) {
 
   const [page, setPage] = useState("ForYou") //This determines what part of the page we render. EX: For you page or Job List page
 
-
   const [jobs, setJobs] = useState([{}]); //Set Job Info Here
 
   //These are all temp values. In reality, this wont be filled up like this, you fill it up from back end. This stores all our posts
@@ -68,8 +67,12 @@ function PageCtrl(props) {
   //state that contains post ids
   const [posts, setPosts] = useState([]);
   const [before, setBefore] = useState(null);
+
   //state that triggers getting posts
   const [requestGetPosts, setRequestGetPosts] = useState(false);
+
+  //Account Info
+  const [accountOption, setAccountOption] = useState("account-post");
 
   //effect hook that populates the posts
   useEffect(() => {
@@ -107,6 +110,9 @@ function PageCtrl(props) {
     }
     else if (e.target.id == "Jobs") {
       setPage("Jobs");
+    }
+    else if(e.target.id == "Account"){
+      setPage("Account")
     }
   }
 

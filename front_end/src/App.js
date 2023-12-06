@@ -5,6 +5,7 @@ import { CookiesProvider } from 'react-cookie';
 
 //assets
 import './App.css';
+import './static/css/account-page.css';
 
 //methods
 import { dbAnonSignUp } from "./db methods/dbAnonSignUp";
@@ -16,13 +17,15 @@ import Header from './components/header';
 import PageCtrl from "./components/PageCtrl";
 import Browse from './components/browse';
 
+import biden_pfp from './static/images/biden-pfp.jpg';
+import ReportFineCard from "./components/report-fine-card";
+
 function App() {
   //cookies
   const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
 
   //states
   const [info, setInfo] = useState({}); //stores user information
-
   //hooks
 
   //automatically create an anonymous user for the client when the app is first used
@@ -73,6 +76,7 @@ function App() {
   const suggested_users = [] //Get from the backend and fill it here
   const trending_users = [] //Get from the backend and fill it here
 
+  
   return (
     // wrapping the app component in a CookiesProvider allows cookies to be visible within the whole component
     <CookiesProvider>

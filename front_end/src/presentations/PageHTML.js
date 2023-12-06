@@ -7,7 +7,7 @@ import mario_pfp from '../static/images/mario-pfp.jpg';
 import CreatePostCtrl from "../components/CreatePostCtrl";
 import ViewCard from "../components/view-post-card";
 import JobCard from "../components/job-card";
-
+import AccountPage from '../components/account-page';
 function PageHTML(props) {
     let pageContent = <></>;
 
@@ -41,7 +41,13 @@ function PageHTML(props) {
             </div>
         )
     }
-
+    else if(props.paeg == 'Account'){
+        pageContent = (
+        <>
+            <AccountPage />
+        </>
+        )
+    }
     return (
         <>
             <div className="posts-container">
