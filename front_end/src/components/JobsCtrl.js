@@ -4,8 +4,9 @@ import JobsHTML from "../presentations/JobsHTML";
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
-import { dbGetPosts, dbGetPostInfo, dbGetUserInfo } from "../db methods/dbGetPosts";
-
+import {   dbGetUserInfo } from "../db methods/dbGetUserInfo";
+import { dbGetPosts } from "../db methods/dbGetPosts";
+import { dbGetPostInfo } from "../db methods/dbGetPostInfo";
 
 function JobsCtrl(props) {
  
