@@ -17,6 +17,9 @@ function TipCtrl(props) {
     //state to control database request
     const [requestTip, setRequestTip] = useState(false);
 
+    const [me] = props.whichCookies();
+    const you = props.target;
+
     //effect hook to do the tipping
     useEffect(() => {
         async function tip() {
@@ -69,7 +72,8 @@ function TipCtrl(props) {
         <>
             <TipHTML showInput={showInput} toggleShowInput={toggleShowInput}
                 amount={amount} handleAmountChange={handleAmountChange}
-                triggerTip={triggerTip} />
+                triggerTip={triggerTip} 
+                me={me} you={you}/>
         </>
     )
 }

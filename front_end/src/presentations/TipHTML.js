@@ -1,4 +1,7 @@
 function TipHTML(props) {
+    if (props.me == props.you) {
+        return "You can't tip yourself dummy!!!";
+    }
 
     if (props.showInput) {
         return (
