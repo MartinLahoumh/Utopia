@@ -1,6 +1,7 @@
 import '../static/css/post-card.css';
 import heart from '../static/images/heart.png';
 import brokenHeart from '../static/images/broken-heart.png';
+import biden from '../static/images/biden-pfp.jpg';
 import { useState } from "react";
 
 const Comments = (comment, setComment) => {
@@ -62,6 +63,18 @@ const ViewCard = (props) => {
                 </div>
                 <div style={{ backgroundColor: props.color }} className='card-body'>
                     <h3>{props.body}</h3>
+                    {props.images[0] != null?
+                    <div  className='imgs-container'>
+                        <div style={{width:"20%", margin:"0"}} className='ad-container '>
+                            <img className='ad' src={biden}/>
+                        </div>
+                        {props.images[1] != null?
+                        <div style={{width:"20%", margin:"0"}} className='ad-container '>
+                            <img className='ad' src={props.images[1]}/>
+                        </div>:null}
+                    </div>
+                    :null}
+                    
                 </div>
                 <div className='card-header'>
                     <div className='follow-button-post'>Follow</div>

@@ -197,3 +197,17 @@
     border-left-width: 4px;
     border-radius: 0;
 }
+
+.card-body{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.imgs-container{
+    /*background-color: blue;*/
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}

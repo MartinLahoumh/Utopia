@@ -19,6 +19,7 @@ import Browse from './components/browse';
 
 import biden_pfp from './static/images/biden-pfp.jpg';
 import ReportFineCard from "./components/report-fine-card";
+import ViewCard from "./components/view-post-card";
 
 function App() {
   //cookies

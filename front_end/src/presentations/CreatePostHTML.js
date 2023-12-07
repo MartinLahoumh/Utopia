@@ -39,6 +39,10 @@ const CreatePostHTML = (props) => {
                         <div className='ad-container'> {/*Where we will place all submitted images of this post */}
                             {/*These are place holders to show you how they will look */}
                                 <img className="ad" src={"http://127.0.0.1:5000"+props.images[0]}></img>
+                                {props.images[1] != null?
+                                <>
+                                <img className="ad" src={"http://127.0.0.1:5000"+props.images[1]}></img>
+                                </>:null}
                         </div>
                     :null}
                 </>
