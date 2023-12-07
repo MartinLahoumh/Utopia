@@ -1,44 +1,17 @@
-import '../static/css/post-card.css';
-import brokenHeart from '../static/images/broken-heart.png';
+//hooks
 import { useState } from "react";
 import { useCookies } from 'react-cookie';
+
+//assets
+import '../static/css/post-card.css';
+import brokenHeart from '../static/images/broken-heart.png';
+
+//components
 import FollowCtrl from './FollowCtrl';
 import LikeCtrl from './LikeCtrl';
 import DislikeCtrl from './DislikeCtrl';
-
-const Comments = (comment, setComment) => {
-    if (comment) {
-        return (
-            <>
-                <div className='comment-button-open'>
-                    <div className='user-comment-container'>
-                        <textarea className='user-comment' type='text' placeholder="Add Comment"></textarea>
-                    </div>
-                    <div className='comments'>
-                        <img className='card-pfp-img comment-pfp-img'></img>
-                        <h5 className='comment-body'>What is going on in this image?</h5>
-                    </div>
-                    <div className='comments'>
-                        <img className='card-pfp-img comment-pfp-img'></img>
-                        <h5 className='comment-body'>What is going on in this image?</h5>
-                    </div>
-                    <div className='comments'>
-                        <img className='card-pfp-img comment-pfp-img'></img>
-                        <h5 className='comment-body'>What is going on in this image?</h5>
-                    </div>
-                </div>
-                <button onClick={() => { console.log("CLICK!"); setComment(false); }} className='comment-button'>
-                    ^
-                </button>
-            </>
-        )
-    }
-    return (
-        <button onClick={() => { console.log("CLICK!"); setComment(true); }} className='comment-button'>
-            V
-        </button>
-    )
-}
+import CommentCtrl from './CommentCtrl';
+import TipCtrl from "./TipCtrl";
 
 const ViewCard = (props) => {
     const [cookies, setCookie, removeCookie] = useCookies();
@@ -91,12 +64,15 @@ const ViewCard = (props) => {
                                                        triggerGetUserInfo={props.triggerGetUserInfo}/> : null}
                     {cookies["loggedIn"] ? <div className='follow-button-post'>Block</div> : null}
                     <div className='follow-button-post'>Report</div>
-                    {cookies["loggedIn"] ? <div className='follow-button-post'>Tip</div> : null}
+                    {cookies["loggedIn"] ? <TipCtrl target={props.postContent['author']}
+                                                    whichCookies={props.whichCookies}
+                                                    triggerGetUserInfo={props.triggerGetUserInfo}/> : null}
                     <div>Views: {props.postContent["views"]}</div>
                     <div>Date: {props.postContent["time_posted"]}</div>
                 </div>
             </div>
-            {Comments(commentClick, setCommentClick)}
+            <CommentCtrl parent={props.postContent['id']} 
+                         whichCookies={props.whichCookies}/>
         </>
     );
 }
