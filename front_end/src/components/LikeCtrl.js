@@ -14,6 +14,7 @@ function LikeCtrl(props) {
     const [cookies, setCookie, removeCookie] = useCookies();
 
     //state to understand if this post's user is being liked
+    //console.log("like info", props.info);
     const [isLiking, setIsLiking] = useState(dbCheckLike(props.info, props.target));
 
     

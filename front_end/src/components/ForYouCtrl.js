@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 //methods
 import { dbGetPosts } from "../db methods/dbGetPosts";
 import { dbGetPostInfo } from "../db methods/dbGetPostInfo";
+import { dbGetUserInfo } from "../db methods/dbGetUserInfo";
 
 //assets
 import biden_pfp from '../static/images/biden-pfp.jpg';
@@ -13,7 +14,6 @@ import mario_pfp from '../static/images/mario-pfp.jpg';
 
 //components
 import ForYouHTML from "../presentations/ForYouHTML";
-import { dbGetUserInfo } from "../db methods/dbGetUserInfo";
 
 function ForYouCtrl(props) {
     //cookies

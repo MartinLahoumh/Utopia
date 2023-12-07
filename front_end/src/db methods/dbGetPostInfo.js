@@ -7,6 +7,7 @@ export async function dbGetPostInfo(uid, key, postid) {
         'key': key,
         'id': postid
     }
+    //console.log("submission", submission);
 
     try {
         const response = await axios.post('http://127.0.0.1:5000/posts/info', submission);

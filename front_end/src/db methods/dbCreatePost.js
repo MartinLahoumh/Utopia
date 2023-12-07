@@ -13,15 +13,18 @@ export async function dbCreatePost(uid, key, text, keywords, postType) {
         'type': postType
     }
 
+    //console.log(submission);
+
     //ping the endpoint
     try {
         const response = await axios.post('http://127.0.0.1:5000/posts/create', submission);
         console.log(response);
 
         const error = response["data"]["error"];
+        const cost = response["data"]["cost"];
         const id = response["data"]["id"];
     
-        return [id, error];
+        return [id, cost, error];
     
     } catch(error) {
         console.log(error);
