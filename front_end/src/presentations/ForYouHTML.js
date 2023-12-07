@@ -8,7 +8,10 @@ function ForYouHTML(props) {
     return (
         <>
             {/* component that allows you to make a new post */}
-            <CreatePostCtrl info={props.info} triggerGetInitialPosts={props.triggerGetInitialPosts} whichCookies={props.whichCookies}/>
+            <CreatePostCtrl info={props.info} 
+                            triggerGetInitialPosts={props.triggerGetInitialPosts} 
+                            triggerGetUserInfo={props.triggerGetUserInfo}
+                            whichCookies={props.whichCookies}/>
 
             {/* turn each post info into a post card component */}
             {props.postsInfo.map((post, index) => {

@@ -1,31 +1,66 @@
+//hooks
+import { useEffect, useState } from "react";
+
+//methods
+import dbAddBalance from "../db methods/dbAddBalance";
+
 //components
 import SelfProfileHTML from "../presentations/SelfProfileHTML";
-import { useEffect, useState } from "react";
+
 function SelfProfileCtrl(props) {
-  let [tipAmmount, setTipAmmount] = useState(0);
-  let [usersBlocked, setUsersBlocked] = useState(0);
-  let [totalMoney, setTotalMoney] = useState(0);
 
-  const handleValueSubmit = (e)=>{
-    if(e.target.id == 'tip-amount'){
-      alert(`SENT ${tipAmmount} TO THE USER`);
+  //state to keep track of the user input
+  let [amount, setAmount] = useState(0);
+
+  //state to control database request
+  const [requestAddBalance, setRequestAddBalance] = useState(false);
+
+  //effect hook to add balance to the user's account
+  useEffect(() => {
+    async function addBalance() {
+      if (requestAddBalance) {
+        const [uid, key] = props.whichCookies();
+
+        try {
+          if (!Number.isInteger(parseInt(amount))) {
+            alert("You didn't enter in a number.");
+          } else {
+            //add the balance
+            const error = await dbAddBalance(uid, key, parseInt(amount));
+
+            //if successful, do these behaviors
+            if (error == null) {
+              setAmount(0); //reset field
+              alert("Balance added.");
+
+              //trigger a refresh
+              props.triggerGetUserInfo();
+            }
+          }
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setRequestAddBalance(false);
+        }
+      }
     }
-    else if(e.target.id == 'balance-amount'){
-      alert(`YOU HAVE ${totalMoney} AMOUNT OF MONEY BROKIE!`);
-    }
+    addBalance();
+  }, [requestAddBalance]);
+
+  //function that triggers the add balance effect
+  function triggerAddBalance() {
+    setRequestAddBalance(true);
   }
 
-
-  const handleTipChange = (e)=>{
-    setTipAmmount(e.target.value);
+  const handleBalanceChange = (e) => {
+    setAmount(e.target.value);
   }
 
-  const handleBalanceChange = (e)=>{
-    setTotalMoney(e.target.value)
-  }
   return (
     <>
-      <SelfProfileHTML info={props.info} amtBalance={totalMoney} amtTip={tipAmmount} handleTipChange={handleTipChange} handleBalanceChange={handleBalanceChange} handleValueSubmit={handleValueSubmit}/>
+      <SelfProfileHTML info={props.info} amount={amount}
+        handleBalanceChange={handleBalanceChange}
+        triggerAddBalance={triggerAddBalance} />
     </>
   );
 }

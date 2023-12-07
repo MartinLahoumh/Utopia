@@ -23,7 +23,9 @@ const Header = (props) => {
   const loggedInComponent = (
     <>
       <SignOutCtrl triggerGetAnonUserInfo={props.triggerGetAnonUserInfo}/>
-      <SelfProfileCtrl info={props.info}/>
+      <SelfProfileCtrl info={props.info} 
+                       whichCookies={props.whichCookies}
+                       triggerGetUserInfo={props.triggerGetUserInfo}/>
     </>
   )
 

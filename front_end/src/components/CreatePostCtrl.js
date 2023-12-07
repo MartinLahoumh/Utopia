@@ -35,7 +35,7 @@ const CreatePostCtrl = (props) => {
 
                 try {
                     //make the post
-                    const [id, error] = await dbCreatePost(uid, key, body, tags, postType);
+                    const [id, cost, error] = await dbCreatePost(uid, key, body, tags, postType);
                     //console.log(id);
 
                     //if successful, clear the fields
@@ -43,10 +43,13 @@ const CreatePostCtrl = (props) => {
                         setBody("");
                         setTags(["", "", ""]);
                         alert("Post created.");
+                    } else {
+                        alert("Error: " + error);
                     }
 
                     //next, refresh the posts
                     props.triggerGetInitialPosts();
+                    props.triggerGetUserInfo(); //this is to update the balance
                 } catch (error) {
                     console.log(error)
                 } finally {
