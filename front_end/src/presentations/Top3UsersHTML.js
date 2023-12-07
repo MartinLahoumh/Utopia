@@ -1,5 +1,5 @@
 function Top3UsersHTML(props) {
-    console.log("userinfo", props.usersInfo);
+    //console.log("userinfo", props.usersInfo);
 
     return (
         <>
@@ -7,7 +7,7 @@ function Top3UsersHTML(props) {
 
             <ul>
                 {props.usersInfo.map((userinfo, index) => {
-                    console.log("user contnet", userinfo);
+                    //console.log("user contnet", userinfo);
 
                     return (
                         <>

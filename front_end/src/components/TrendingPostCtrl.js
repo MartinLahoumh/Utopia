@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
 //methods
-import { dbGetPosts } from "../db methods/dbGetPosts";
+import { dbGetTrendingPosts } from "../db methods/dbGetTrendingPosts";
 import { dbGetPostInfo } from "../db methods/dbGetPostInfo";
 import { dbGetUserInfo } from "../db methods/dbGetUserInfo";
 
@@ -13,7 +13,7 @@ import kojima_pfp from '../static/images/kojima-pfp.jpg';
 import mario_pfp from '../static/images/mario-pfp.jpg';
 
 //components
-import ForYouHTML from "../presentations/ForYouHTML";
+import TrendingPostHTML from "../presentations/TrendingPostHTML";
 
 function TrendingPostCtrl(props) {
     //cookies
@@ -44,9 +44,10 @@ function TrendingPostCtrl(props) {
 
                 try {
                     //before is null in order to get the starting 10
-                    const [posts, beforeResult, error] = await dbGetPosts(uid, key, 10, null, ["POST"]);
+                    //no pagination on this
+                    const [posts, beforeResult, error] = await dbGetTrendingPosts(uid, key, 10);
 
-                    //console.log("posts", posts);
+                    console.log("posts", posts);
                     setBefore(beforeResult); //prep the before state for when we need to go to the next page
                     setPosts(posts);
 
@@ -123,52 +124,10 @@ function TrendingPostCtrl(props) {
         setRequestGetPostInfo(true);
     }
 
-    //These are all temp values. In reality, this wont be filled up like this, you fill it up from back end. This stores all our posts
-    const [tempPosts, setTempPosts] = useState([{
-        "pfp": biden_pfp,
-        "author": "Jo Biden",
-        "date": "July 4, 2023",
-        "body": "I am the president yo",
-        "likes": "50",
-        "reposts": "60",
-        "tags": ["President", "America", "USA"]
-    }, {
-        "pfp": kojima_pfp,
-        "author": "Hideo Kojima",
-        "date": "July 4, 2023",
-        "body": "Hey, have you played metal gear? Do you know what metal gear is? Let me know if you played it ok? Yes? metal gear.",
-        "likes": "50",
-        "reposts": "60",
-        "tags": ["President", "America", "USA"]
-    }, {
-        "pfp": mario_pfp,
-        "author": "Mario",
-        "date": "July 4, 2023",
-        "body": "Elaphant",
-        "likes": "50",
-        "reposts": "60",
-        "tags": ["President", "America", "USA"]
-    }, {
-        "pfp": mario_pfp,
-        "author": "Mario",
-        "date": "July 4, 2023",
-        "body": "Elaphant",
-        "likes": "50",
-        "reposts": "60",
-        "tags": ["President", "America", "USA"]
-    }, {
-        "pfp": mario_pfp,
-        "author": "Mario",
-        "date": "July 4, 2023",
-        "body": "Elaphant",
-        "likes": "50",
-        "reposts": "60",
-        "tags": ["President", "America", "USA"]
-    }])
 
     return (
         <>
-            <ForYouHTML info={props.info} triggerGetInitialPosts={triggerGetInitialPosts}
+            <TrendingPostHTML info={props.info} triggerGetInitialPosts={triggerGetInitialPosts}
                 postsInfo={postsInfo} usersInfo={usersInfo} 
                 whichCookies={props.whichCookies}
                 triggerGetUserInfo={props.triggerGetUserInfo}

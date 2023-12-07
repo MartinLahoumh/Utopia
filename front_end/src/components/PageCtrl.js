@@ -20,6 +20,9 @@ function PageCtrl(props) {
     else if (e.target.id == "Jobs") {
       setPage("Jobs");
     }
+    else if (e.target.id == "Trending") {
+      setPage("Trending");
+    }
     else if(e.target.id == "Account"){
       setPage("Account")
     }
