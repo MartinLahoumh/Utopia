@@ -1,7 +1,7 @@
 //components
 import JobsCtrl from '../components/JobsCtrl';
 import ForYouCtrl from "../components/ForYouCtrl";
-//import FollowingPostsCtrl from '../components/FollowingPostsCtrl';
+import FollowingPostsCtrl from '../components/FollowingPostsCtrl';
 import AccountPage from '../components/account-page';
 function PageHTML(props) {
     //display logic
@@ -14,7 +14,7 @@ function PageHTML(props) {
         pageContent = <ForYouCtrl info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>
     }
     else if (props.page == "Following") {
-        //pageContent = <FollowingPostsCtrl info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>;
+        pageContent = <FollowingPostsCtrl info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>;
     }
     else if (props.page == 'Jobs') {
         pageContent = <JobsCtrl />

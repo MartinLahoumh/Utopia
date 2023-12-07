@@ -2,28 +2,40 @@
 import CreatePostCtrl from "../components/CreatePostCtrl";
 import ViewCard from "../components/view-post-card";
 
+//NOTE this is a copy paste of ForYou
+
 function FollowingPostsHTML(props) {
-    const colors = ["#80000000", "#0000fa55", "#00ff005b", "#ffff0055"];
+    const colors = ["#fa000055", "#0000fa55", "#00ff005b", "#ffff0055"]
 
     return (
         <>
             {/* component that allows you to make a new post */}
-            <CreatePostCtrl info={props.info} triggerGetInitialPosts={props.triggerGetInitialPosts} />
+            <CreatePostCtrl info={props.info} 
+                            triggerGetInitialPosts={props.triggerGetInitialPosts} 
+                            triggerGetUserInfo={props.triggerGetUserInfo}
+                            whichCookies={props.whichCookies}/>
+
+            {/* turn each post info into a post card component */}
             {props.postsInfo.map((post, index) => {
-                const postContent = post[0]; // Assuming post info is an array with the post data as the first element
-                const userContent = props.usersInfo[index][0]; // Assuming user info is an array with the user data as the first element
+                const postContent = post[0];
+                const userContent = props.usersInfo[index][0];
+                //console.log(postContent, userContent);
 
                 return (
-                    <ViewCard 
-                        info={props.info}
-                        postContent={postContent}
-                        userContent={userContent}
-                        color={colors[Math.floor(Math.random() * colors.length)]}
-                        whichCookies={props.whichCookies}
-                        triggerGetUserInfo={props.triggerGetUserInfo}
-                    />
+                    <>
+                        <ViewCard 
+                            info={props.info}
+                            postContent={postContent}
+                            userContent={userContent}
+                            color={colors[Math.floor(Math.random() * (4))]}
+                            whichCookies={props.whichCookies}
+                            triggerGetUserInfo={props.triggerGetUserInfo}
+                            triggerGetPostInfo={props.triggerGetPostInfo}/>
+
+                    </>
                 );
-            })}
+            }
+            )}
         </>
     );
 }
