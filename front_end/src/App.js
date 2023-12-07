@@ -78,7 +78,7 @@ function App() {
     async function getUserInfo() {
       if (requestGetUserInfo) {
         const [uid, key] = whichCookies();
-        //console.log("info being used:", uid, key)
+        console.log("info being used:", uid, key)
 
         try {
           const [info, error] = await dbGetUserInfo(uid, key, uid);

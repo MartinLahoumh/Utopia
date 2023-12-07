@@ -16,7 +16,7 @@ function PageHTML(props) {
         //pageContent = <FollowingCtrl info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>;
     }
     else if (props.page == 'Jobs') {
-        pageContent = <JobsCtrl />
+        pageContent = <JobsCtrl whichCookies={props.whichCookies}/>
     }
     else if(props.page == 'Account'){
         pageContent = (

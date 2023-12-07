@@ -53,10 +53,16 @@ const CreatePostHTML = (props) => {
                     <label>URL</label>
                     <input className='ad-url' value={props.body} onChange={props.handleBodyChange} />
                     <br />
-                    <div className='ad-img-container'> {/*Where we will place all submitted images of this post */}
-                        {/*These are place holders to show you how they will look */}
-                        <img className="ad-img" src={"http://127.0.0.1:5000"+props.images[0]}></img>
-                    </div>
+                    {props.images[0] != ""?
+                        <div className='ad-container'> {/*Where we will place all submitted images of this post */}
+                            {/*These are place holders to show you how they will look */}
+                                <img className="ad" src={"http://127.0.0.1:5000"+props.images[0]}></img>
+                                {props.images[1] != ""?
+                                <>
+                                <img className="ad" src={"http://127.0.0.1:5000"+props.images[1]}></img>
+                                </>:null}
+                        </div>
+                    :null}
                 </>
             )
             break;
@@ -64,12 +70,12 @@ const CreatePostHTML = (props) => {
             postBody = (
                 <>
                     <label>Position</label>
-                    <input className='job-position' value={props.body} onChange={props.handleBodyChange} />
+                    <input className='job-position' id='0' value={props.tags[0]} onChange={props.handleTagChange} />
                     <br />
                     <label>Requirement 1</label>
-                    <input className='job-position' value={props.body} onChange={props.handleBodyChange} />
+                    <input className='job-position' id='1' value={props.tags[1]} onChange={props.handleTagChange} />
                     <label>Requirement 2</label>
-                    <input className='job-position' value={props.body} onChange={props.handleBodyChange} />
+                    <input className='job-position' id='2' value={props.tags[2]} onChange={props.handleTagChange} />
                     <br />
                 </>
             )
