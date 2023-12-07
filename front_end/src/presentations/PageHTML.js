@@ -10,7 +10,7 @@ function PageHTML(props) {
 
     let pageContent = <></>;
     if (props.page == 'ForYou') {
-        pageContent = <ForYouCtrl info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>
+        pageContent = <ForYouCtrl searchItem={props.searchItem} info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>
     }
     else if (props.page == "Following") {
         //pageContent = <FollowingCtrl info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>;

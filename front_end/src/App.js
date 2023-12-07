@@ -21,6 +21,8 @@ import biden_pfp from './static/images/biden-pfp.jpg';
 import ReportFineCard from "./components/report-fine-card";
 
 function App() {
+  const [searchItem, setSearchItem] = useState("");
+  const [searchActive, setSearchActive] = useState(false);
   //cookies
   const [cookies, setCookie, removeCookie] = useCookies(['loggedIn', 'uid']);
 
@@ -140,20 +142,28 @@ function App() {
     setRequestGetAnonUserInfo(true);
   }
 
+  const handleSearchItemChange = (e)=>{
+    setSearchItem(e.target.value);
+  }
 
-  const suggested_users = [] //Get from the backend and fill it here
-  const trending_users = [] //Get from the backend and fill it here
+  const searchActiveClicked = ()=>{
+    if(searchActive != true){
+      setSearchActive(true);
+    }
+  }
+
+
 
   
   return (
     // wrapping the app component in a CookiesProvider allows cookies to be visible within the whole component
     <CookiesProvider>
       <div className="header-container">
-        <Header info={info} whichCookies={whichCookies} triggerGetUserInfo={triggerGetUserInfo} triggerGetAnonUserInfo={triggerGetAnonUserInfo}/>
+        <Header searchItem={searchItem} handleSearchItemChange={handleSearchItemChange} info={info} whichCookies={whichCookies} triggerGetUserInfo={triggerGetUserInfo} triggerGetAnonUserInfo={triggerGetAnonUserInfo}/>
       </div>
       <div className="App">
         {/* prop drilling; change whichCookies to a context later */}
-        <PageCtrl info={info} whichCookies={whichCookies} triggerGetUserInfo={triggerGetUserInfo} />
+        <PageCtrl searchItem={searchItem} info={info} whichCookies={whichCookies} triggerGetUserInfo={triggerGetUserInfo} />
       </div>
       <div className='header-container browse-container'>
         <Browse />

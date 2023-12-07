@@ -28,7 +28,6 @@ const Header = (props) => {
   const [adURL, setAdURL] = useState("");
   const [adImg, setAdImg] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
-
   const loggedInComponent = (
     <>
       <SignOutCtrl triggerGetAnonUserInfo={props.triggerGetAnonUserInfo}/>
@@ -124,16 +123,16 @@ const Header = (props) => {
     setRequestGetAdInfo(true);
   }
 
-  console.log(adURL);
-  console.log('http://127.0.0.1:5000' + adImg);
+  
   return (
     <>
       <div className='header'>
         <img className='logo' src={logo} />
         {cookies.loggedIn == true ? loggedInComponent : loggedOutComponent}
-        <input className='search' type='text' placeholder="Search..." />
+        <input className='search' value={props.searchItem} onChange={props.handleSearchItemChange} type='text' placeholder="Search..." />
         <br />
-
+        <button>Search</button>
+        <br />
         {/*These are all the filter. They are the 3 icons in the header */}
         <div className="filter-option-container">
           <div className="ad-container icon-container">
@@ -149,7 +148,6 @@ const Header = (props) => {
             <label className="icon-label">Videos</label>
           </div>
         </div>
-
         {/*This is the ad section. It will hold an ad */}
         <a href={adURL} target='_blank'className="ad-container">
           <img className='ad' src={'http://127.0.0.1:5000' + adImg}/>
