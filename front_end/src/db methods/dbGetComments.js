@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-//get post - gets posts using the /search endpoint
+//get comments - gets comments using the /search endpoint
 
 
-export async function dbGetPosts(uid, key, limit, b4, types) {
+export async function dbGetComments(uid, key, limit, b4, parent) {
 
     const submission = {
         'uid': uid,
@@ -14,11 +14,11 @@ export async function dbGetPosts(uid, key, limit, b4, types) {
         'dislikes': [null, null],
         'limit': limit,
         'before': b4,
-        'types': types,
+        'types': ['COMMENT'],
         'sort': 'NEWEST',
-        'parent': null
+        'parent': parent
     }
-    //console.log(submission);
+    console.log("comment getting", submission);
     
     //ping the endpoint
     try {
