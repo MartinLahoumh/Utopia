@@ -9,7 +9,7 @@ import { submitImage } from '../db methods/dbSubmitImage';
 const CreatePostHTML = (props) => {
     const username = props.info['username'];
 
-    const postPicker = JSON.stringify(props.info['type']) == '["ANON","CORPORATE","ORDINARY","SURFER"]' ? //way to check that type is corporate
+    const postPicker = JSON.stringify(props.info.type) == '["ANON","CORPORATE","ORDINARY","SURFER"]' ? //way to check that type is corporate
         (<div className='post-type'>
             <h3>Type: </h3>
             <div className='option-tag'>
@@ -34,11 +34,11 @@ const CreatePostHTML = (props) => {
                 <>
                     <textarea className='post-card-body' value={props.body} onChange={props.handleBodyChange} />
                     {/*Change later so it shows all images, this is just here to make sure it works, gonna work on other important stuff now */}
-                    {props.images[0] != null?
+                    {props.images[0] != ""?
                         <div className='ad-container'> {/*Where we will place all submitted images of this post */}
                             {/*These are place holders to show you how they will look */}
                                 <img className="ad" src={"http://127.0.0.1:5000"+props.images[0]}></img>
-                                {props.images[1] != null?
+                                {props.images[1] != ""?
                                 <>
                                 <img className="ad" src={"http://127.0.0.1:5000"+props.images[1]}></img>
                                 </>:null}

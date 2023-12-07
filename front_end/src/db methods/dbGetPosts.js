@@ -12,10 +12,12 @@ export async function dbGetPosts(uid, key, limit, b4, types) {
         'keywords': null,
         'likes': [null, null],
         'dislikes': [null, null],
+        'images': [null, null],
         'limit': limit,
         'before': b4,
         'types': types,
-        'sort': 'NEWEST'
+        'sort': 'NEWEST',
+        'parent': null,
     }
     //console.log(submission);
     

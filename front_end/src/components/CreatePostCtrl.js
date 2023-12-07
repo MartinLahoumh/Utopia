@@ -22,7 +22,7 @@ const CreatePostCtrl = (props) => {
     let [tags, setTags] = useState(["", "", ""]);
     let [body, setBody] = useState("");
     let [postType, setPostType] = useState("POST"); //Making a regular post, or an ad, or a job
-    let [images, setImages] = useState([null, null]);
+    let [images, setImages] = useState(["", ""]);
     
     //state to trigger data request
     let [requestSendPost, setRequestSendPost] = useState(false);
@@ -37,14 +37,16 @@ const CreatePostCtrl = (props) => {
 
                 try {
                     //make the post
-                    const [id, error] = await dbCreatePost(uid, key, body, tags, postType);
+                    console.log(images);
+                    console.log(body);
+                    const [id, error] = await dbCreatePost(uid, key, body, tags, postType, images);
                     //console.log(id);
 
                     //if successful, clear the fields
                     if (error == null) {
                         setBody("");
                         setTags(["", "", ""]);
-                        setImages([null, null]);
+                        setImages(["", ""]);
                         alert("Post created.");
                     }
 
@@ -81,10 +83,10 @@ const CreatePostCtrl = (props) => {
 
     const handleImageChange = (value)=>{
         let newImages = [...images];
-        if(images[0] == null){
+        if(images[0] == ""){
             newImages[0] = value;
         }
-        else if(images[1] == null){
+        else if(images[1] == ""){
         newImages[1] = value;
         }
         else{

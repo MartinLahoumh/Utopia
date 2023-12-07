@@ -46,7 +46,8 @@ function ForYouCtrl(props) {
                     //before is null in order to get the starting 10
                     const [posts, beforeResult, error] = await dbGetPosts(uid, key, 10, null, ["POST"]);
 
-                    //console.log("posts", posts);
+                    console.log("posts", posts);
+                    console.log(error);
                     setBefore(beforeResult); //prep the before state for when we need to go to the next page
                     setPosts(posts);
 
@@ -89,6 +90,7 @@ function ForYouCtrl(props) {
                     let newUsersInfo = [];
 
                     //iterate through each postid
+                    console.log(posts);
                     for (const postid of posts) {
                         //retrieve postinfo
                         const postInfo = await dbGetPostInfo(uid, key, postid);
