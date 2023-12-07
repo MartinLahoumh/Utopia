@@ -1,26 +1,19 @@
+
 //hooks
 import { useState, useEffect } from "react";
-import { useCookies } from "react-cookie";
 
 //methods
-import { dbGetPosts } from "../db methods/dbGetPosts";
+import dbTop3Posts from "../db methods/dbTop3Posts";
 import { dbGetPostInfo } from "../db methods/dbGetPostInfo";
 import { dbGetUserInfo } from "../db methods/dbGetUserInfo";
 
-//assets
-import biden_pfp from '../static/images/biden-pfp.jpg';
-import kojima_pfp from '../static/images/kojima-pfp.jpg';
-import mario_pfp from '../static/images/mario-pfp.jpg';
-
 //components
-import ForYouHTML from "../presentations/ForYouHTML";
+import Top3PostsHTML from "../presentations/Top3PostsHTML";
 
-function ForYouCtrl(props) {
-    //cookies
-    const [cookies, setCookie, removeCookie] = useCookies();
+//copy paste of foryou
 
-    //state that is used for posts pagination
-    const [before, setBefore] = useState(null);
+function Top3PostsCtrl(props) {
+
     //state that contains post ids
     const [posts, setPosts] = useState([]);
     //state that contains info for each post
@@ -28,8 +21,6 @@ function ForYouCtrl(props) {
     //state that contains user infos for the users of the post
     const [usersInfo, setUsersInfo] = useState([]);
 
-    //state that triggers getting posts
-    const [requestGetInitialPosts, setRequestGetInitialPosts] = useState(false);
     //state that triggers getting post infos
     const [requestGetPostInfo, setRequestGetPostInfo] = useState(false);
 
@@ -37,17 +28,16 @@ function ForYouCtrl(props) {
 
     //effect hook that populates the posts with post ids AT THE START
     useEffect(() => {
-        async function handleGetInitialPosts() {
-            if (requestGetInitialPosts) {
+        async function handleGetTrendingPosts() {
+            if (props.requestGetTrendingPosts) {
                 //determine whether to use logged in or anon cookies
                 const [uid, key] = props.whichCookies();
 
                 try {
                     //before is null in order to get the starting 10
-                    const [posts, beforeResult, error] = await dbGetPosts(uid, key, 10, null, ["POST"]);
+                    const [posts, error] = await dbTop3Posts(uid, key);
 
                     //console.log("posts", posts);
-                    setBefore(beforeResult); //prep the before state for when we need to go to the next page
                     setPosts(posts);
 
                     //now, convert post ids to info by triggering the other effect hook
@@ -55,25 +45,19 @@ function ForYouCtrl(props) {
                 } catch (error) {
                     console.log(error);
                 } finally {
-                    setRequestGetInitialPosts(false);
+                    props.setRequestGetTrendingPosts(false);
                 }
             }
         }
-        handleGetInitialPosts();
-    }, [requestGetInitialPosts]);
+        handleGetTrendingPosts();
+    }, [props.requestGetTrendingPosts]);
 
     //WHEN TO TRIGGER GETTING INITIAL POSTS ==============================================================================
 
     //effect hook that triggers getting posts on component refresh (switching tabs or refreshing page)
     useEffect(() => {
-        setRequestGetInitialPosts(true);
+        props.triggerGetTrendingPosts();
     }, [])
-
-    //function that also triggers getting posts (for manual refresh)
-    function triggerGetInitialPosts() {
-        setRequestGetInitialPosts(true);
-        setRequestGetTrendingPosts(true);
-    }
 
     //TURNING POST IDS INTO INFO ==============================================================================
 
@@ -122,72 +106,18 @@ function ForYouCtrl(props) {
     //function that  triggers getting post info (for manual refresh)
     function triggerGetPostInfo() {
         setRequestGetPostInfo(true);
-        setRequestGetTrendingPosts(true);
     }
 
-    //These are all temp values. In reality, this wont be filled up like this, you fill it up from back end. This stores all our posts
-    const [tempPosts, setTempPosts] = useState([{
-        "pfp": biden_pfp,
-        "author": "Jo Biden",
-        "date": "July 4, 2023",
-        "body": "I am the president yo",
-        "likes": "50",
-        "reposts": "60",
-        "tags": ["President", "America", "USA"]
-    }, {
-        "pfp": kojima_pfp,
-        "author": "Hideo Kojima",
-        "date": "July 4, 2023",
-        "body": "Hey, have you played metal gear? Do you know what metal gear is? Let me know if you played it ok? Yes? metal gear.",
-        "likes": "50",
-        "reposts": "60",
-        "tags": ["President", "America", "USA"]
-    }, {
-        "pfp": mario_pfp,
-        "author": "Mario",
-        "date": "July 4, 2023",
-        "body": "Elaphant",
-        "likes": "50",
-        "reposts": "60",
-        "tags": ["President", "America", "USA"]
-    }, {
-        "pfp": mario_pfp,
-        "author": "Mario",
-        "date": "July 4, 2023",
-        "body": "Elaphant",
-        "likes": "50",
-        "reposts": "60",
-        "tags": ["President", "America", "USA"]
-    }, {
-        "pfp": mario_pfp,
-        "author": "Mario",
-        "date": "July 4, 2023",
-        "body": "Elaphant",
-        "likes": "50",
-        "reposts": "60",
-        "tags": ["President", "America", "USA"]
-    }])
-
-    //MANAGING TREND POST STUFF
-    //state that triggers getting post infos
-    const [requestGetTrendingPosts, setRequestGetTrendingPosts] = useState(false);
-    //function that  triggers getting post info (for manual refresh)
-    function triggerGetTrendingPosts() {
-        setRequestGetTrendingPosts(true);
-    }
 
     return (
         <>
-            <ForYouHTML info={props.info} triggerGetInitialPosts={triggerGetInitialPosts}
+            <Top3PostsHTML info={props.info}
                 postsInfo={postsInfo} usersInfo={usersInfo}
                 whichCookies={props.whichCookies}
                 triggerGetUserInfo={props.triggerGetUserInfo}
-                triggerGetPostInfo={triggerGetPostInfo} 
-                requestGetTrendingPosts={requestGetTrendingPosts}
-                setRequestGetTrendingPosts={setRequestGetTrendingPosts}
-                triggerGetTrendingPosts={triggerGetTrendingPosts}/>
+                triggerGetPostInfo={props.triggerGetPostInfo} />
         </>
     )
 }
 
-export default ForYouCtrl;
+export default Top3PostsCtrl;
