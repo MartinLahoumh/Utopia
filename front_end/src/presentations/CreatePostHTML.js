@@ -102,7 +102,7 @@ const CreatePostHTML = (props) => {
                 so that the image gets saved to the backend side, and we can access it from there. Create an array of string called 'imgArr'.
                 Each element of this should be the img url that we will send to the back end upon uploading.*/}
                     <input style={{ opacity: "0%" }} onChange={() => { }} type="file" name="img" id="img-upload" hidden />
-                    <label style={{ width: '20%', height: '3.5vh', marginBottom: "10px", display: 'flex', justifyContent: 'center', alignItems: 'center' }} for='img-upload' className="main-button">
+                    <label style={{ width: '20%', height: '3.5vh', marginBottom: "10px", display: 'flex', justifyContent: 'center', alignItems: 'center' }} htmlFor='img-upload' className="main-button">
                         Upload Media
                     </label>
                     {/* This is the post button. Upon clicking, submit all this info to the appropriate endpoint in the backend */}
