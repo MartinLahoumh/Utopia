@@ -109,6 +109,7 @@ const CreatePostCtrl = (props) => {
 
     //function that starts the sending post process
     function triggerSendPost() {
+        console.log("TYPE: ", postType);
         setRequestSendPost(true);
     }
 

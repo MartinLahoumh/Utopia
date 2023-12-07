@@ -27,10 +27,10 @@ function App() {
   //testing
   function removeAllCookies() {
     for (let x in cookies) {
-      removeCookie(x);
+      //removeCookie(x);
     }
   }
-  //removeAllCookies();
+  removeAllCookies();
   console.log("cookies", cookies);
   //automatically create an anonymous user for the client when the app is first used
   useEffect(() => {
@@ -149,7 +149,7 @@ function App() {
     // wrapping the app component in a CookiesProvider allows cookies to be visible within the whole component
     <CookiesProvider>
       <div className="header-container">
-        <Header info={info} triggerGetUserInfo={triggerGetUserInfo} triggerGetAnonUserInfo={triggerGetAnonUserInfo}/>
+        <Header info={info} whichCookies={whichCookies} triggerGetUserInfo={triggerGetUserInfo} triggerGetAnonUserInfo={triggerGetAnonUserInfo}/>
       </div>
       <div className="App">
         {/* prop drilling; change whichCookies to a context later */}
