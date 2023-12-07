@@ -15,7 +15,7 @@ export async function dbAnonSignUp() {
 
     //ping the create user endpoint
     try {
-        const response = await axios.post('http://127.0.0.1:5000/users/create', submission);
+        const response = await axios.post('http://127.0.0.1:3000/users/create', submission);
         console.log(response);
 
         let uid = response["data"]["id"];
@@ -26,8 +26,10 @@ export async function dbAnonSignUp() {
     
         return [uid, password_hash, error];
     
-    } catch(error) {
-        console.log(error);
+    } catch (error) {
+        console.error("Error in dbAnonSignUp:", error);
+        // Return an array with null or appropriate default values to maintain the structure
+        return [null, null, error];
     }
 
 

@@ -1,0 +1,73 @@
+.account-page{
+    /*background-color: blue;*/
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.account-pfp-container{
+    border-right-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 0px;
+    object-fit: cover;
+    width: 17%;
+    margin:0;
+}
+
+.account-header{
+    border-style: double;
+    border-width: 10px;
+    border-radius: 8px;
+    box-shadow: 7px 5px black;
+    border-color: black;
+    /*background-color: red;*/
+    display: flex;
+    justify-content: start;
+}
+
+.account-header-follow{
+    display: flex;
+    width: 100%;
+    
+    /*background-color: green;*/
+    justify-content: space-around;
+    align-items: center;
+}
+
+.account-header-info{
+    width: 80%;
+    
+    /*background-color: yellow;*/
+}
+
+.account-info{
+    /*background-color: green;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.account-follow{
+    background-color: blue;
+    border-bottom-style: solid;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.account-options{
+    /*background-color: yellow;*/
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.account-option{
+    cursor: pointer;
+}

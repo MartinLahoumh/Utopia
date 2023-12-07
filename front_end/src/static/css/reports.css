@@ -1,0 +1,33 @@
+.report-fine-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-style: double;
+    border-width: 10px;
+    width: 80%;
+    box-shadow: 7px 5px black;
+    border-color: black;
+}
+
+.report-buttons{
+    display:flex;
+    background-color: red;
+    width: 50%;
+}
+
+.report-card-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dispute-text{
+    border: double;
+    border-width: 10px;
+    box-shadow: 7px 5px black;
+    border-top: none;
+    width: 60%;
+    height: 10vh;
+    resize: none;
+}
