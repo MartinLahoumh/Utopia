@@ -2,13 +2,6 @@ import axios from 'axios';
 
 //get post - gets posts using the /posts/create endpoint
 
-//uid is the user id of the user logged in 
-//key is the stored pass hash that was used to log in
-//text is the body of the post
-
-//returns [result, error]
-//result is the object that the endpoint gives back, so it would have keys corresponding to all the user columns
-//error is the error encountered, null if none
 
 export async function dbGetPosts(uid, key, limit, b4, types) {
 
@@ -17,11 +10,12 @@ export async function dbGetPosts(uid, key, limit, b4, types) {
         'key': key,
         'authors': null,
         'keywords': null,
-        'likes': [0, 1000],
-        'dislikes': [0, 1000],
+        'likes': [null, null],
+        'dislikes': [null, null],
         'limit': limit,
         'before': b4,
-        'types': types
+        'types': types,
+        'sort': 'NEWEST'
     }
     //console.log(submission);
     

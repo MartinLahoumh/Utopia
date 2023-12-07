@@ -8,11 +8,12 @@ import tempPfp from '../static/images/anon-pfp.jpg';
 //methods
 import { dbSignIn } from "../db methods/dbSignIn";
 import { dbSignUp } from "../db methods/dbSignUp";
+import { dbCreateBalance } from "../db methods/dbCreateBalance";
 
 //components
 import SignInHTML from "../presentations/SignInHTML";
 
-function SignInCtrl() {
+function SignInCtrl(props) {
     //STATES**********************************************************************************
 
     //state that determines whether to display the login panel or not
@@ -61,7 +62,12 @@ function SignInCtrl() {
                     //ping the signin endpoint
                     const [uid, password_hash, error] = await dbSignIn(password, email);
                     //try to set the cookies based on response data, if it was successful
-                    doLoginBehavior(error, uid, password_hash, "Successfully signed in.", "Sign in failed. Error: " + error)
+                    doLoginBehavior(error, uid, password_hash, "Successfully signed in.", "Sign in failed. Error: " + error);
+
+                    // if the signin was successful, refresh the user info of the logged in user
+                    if (error == undefined) {
+                        props.triggerGetUserInfo();
+                    }
                 } catch (error) {
                     console.log(error);
                 } finally {
@@ -81,8 +87,18 @@ function SignInCtrl() {
                     //ping the create user endpoint
                     const [uid, password_hash, error] = await dbSignUp(password, email, pfp, bio, userType);
 
+
                     //try to set the cookies based on response data, if it was successful
                     doLoginBehavior(error, uid, password_hash, "Account Successfully Created! Have Fun!", "Error creating user: " + error)
+
+                    //next, create a balance for the user
+                    const error2 = await dbCreateBalance(uid, password_hash);
+                    //console.log("balance creation", error2);
+
+                    // if the signin was successful, refresh the user info of the logged in user
+                    if (error == undefined) {
+                        props.triggerGetUserInfo();
+                    }
                 } catch (error) {
                     console.log(error);
                 } finally {

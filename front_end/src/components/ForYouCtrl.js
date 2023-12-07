@@ -51,7 +51,7 @@ function ForYouCtrl(props) {
                     setPosts(posts);
 
                     //now, convert post ids to info by triggering the other effect hook
-                    setRequestGetPostInfo(true);
+                    triggerGetPostInfo();
                 } catch (error) {
                     console.log(error);
                 } finally {
@@ -94,8 +94,10 @@ function ForYouCtrl(props) {
                         const postInfo = await dbGetPostInfo(uid, key, postid);
                         newPostsInfo.push(postInfo);
 
+                        //console.log("postinfoauthor", postInfo[0]['author']);
+
                         //from the postinfo results, retrieve userinfo
-                        const userInfo = await dbGetUserInfo(uid, key, postInfo['author']);
+                        const userInfo = await dbGetUserInfo(uid, key, postInfo[0]['author']);
                         newUsersInfo.push(userInfo);
 
                         //console.log(postInfo, userInfo);
@@ -105,12 +107,21 @@ function ForYouCtrl(props) {
                 } catch (error) {
                     console.log(error)
                 } finally {
+                    //console.log("postsinfo", postsInfo);
+                    //console.log("usersinfo", usersInfo);
                     setRequestGetPostInfo(false);
                 }
             }
         }
         handleGetPostsInfo();
     }, [requestGetPostInfo])
+
+    //WHEN TO TRIGGER GETTING POST INFO ==============================================================================
+
+    //function that  triggers getting post info (for manual refresh)
+    function triggerGetPostInfo() {
+        setRequestGetPostInfo(true);
+    }
 
     //These are all temp values. In reality, this wont be filled up like this, you fill it up from back end. This stores all our posts
     const [tempPosts, setTempPosts] = useState([{
@@ -158,7 +169,10 @@ function ForYouCtrl(props) {
     return (
         <>
             <ForYouHTML info={props.info} triggerGetInitialPosts={triggerGetInitialPosts}
-                postsInfo={postsInfo} usersInfo={usersInfo} />
+                postsInfo={postsInfo} usersInfo={usersInfo} 
+                whichCookies={props.whichCookies}
+                triggerGetUserInfo={props.triggerGetUserInfo}
+                triggerGetPostInfo={triggerGetPostInfo}/>
         </>
     )
 }

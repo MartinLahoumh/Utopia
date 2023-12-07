@@ -10,7 +10,7 @@ import './static/css/account-page.css';
 //methods
 import { dbAnonSignUp } from "./db methods/dbAnonSignUp";
 import { dbGetUserInfo } from "./db methods/dbGetUserInfo";
-import { dbGetPosts } from "./db methods/dbGetPosts";
+import { dbGetBalance } from "./db methods/dbGetBalance";
 
 //components
 import Header from './components/header';
@@ -19,15 +19,11 @@ import Browse from './components/browse';
 
 import biden_pfp from './static/images/biden-pfp.jpg';
 import ReportFineCard from "./components/report-fine-card";
-import ViewCard from "./components/view-post-card";
 
 function App() {
   //cookies
-  const [cookies, setCookie, removeCookie] = useCookies(['loggedIn']);
+  const [cookies, setCookie, removeCookie] = useCookies(['loggedIn', 'uid']);
 
-  //states
-  const [info, setInfo] = useState({}); //stores user information
-  //hooks
   //testing
   function removeAllCookies() {
     for (let x in cookies) {
@@ -35,7 +31,7 @@ function App() {
     }
   }
   //removeAllCookies();
-  //console.log("cookies", cookies);
+  console.log("cookies", cookies);
   //automatically create an anonymous user for the client when the app is first used
   useEffect(() => {
     async function createAnonUser() {
@@ -43,6 +39,8 @@ function App() {
         const [anon_uid, anon_key, error] = await dbAnonSignUp();
         setCookie("anon_uid", anon_uid);
         setCookie("anon_key", anon_key);
+
+        //console.log("anon error", error);
       }
     }
 
@@ -66,20 +64,81 @@ function App() {
     return [uid, key];
   }
 
-  //if the user is logged in, retrieve user info
-  //TODO: when to properly trigger this refresh??
+  //RETRIEVING USER INFO ==============================================================================
+
+  //states
+  const [info, setInfo] = useState({}); //stores user information
+  //state to handle triggering getting user info
+  const [requestGetUserInfo, setRequestGetUserInfo] = useState(false);
+  //state to handle triggering getting anon user info only
+  const [requestGetAnonUserInfo, setRequestGetAnonUserInfo] = useState(false);
+
+  //retrieve user info
   useEffect(() => {
     async function getUserInfo() {
-      const [uid, key] = whichCookies();
-      //console.log("info being used:", uid, key)
-      
-      const [info, error] = await dbGetUserInfo(uid, key, uid);
-        setInfo(info);
+      if (requestGetUserInfo) {
+        const [uid, key] = whichCookies();
+        //console.log("info being used:", uid, key)
+
+        try {
+          const [info, error] = await dbGetUserInfo(uid, key, uid);
+          const [balance, error2] = await dbGetBalance(uid, key);
+
+          //console.log("balance", balance, error2);
+
+          info["balance"] = balance;
+
+          setInfo(info);
+          //console.log(error);
+          //console.log("info", info);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setRequestGetUserInfo(false);
+        }
+      }
+
     }
     getUserInfo();
-  }, [cookies["uid"]]);
+  }, [requestGetUserInfo]);
 
-  //display logic
+  //retrieve anon user info only
+  useEffect(() => {
+    async function getAnonUserInfo() {
+      if (requestGetAnonUserInfo) {
+
+        try {
+          const [info, error] = await dbGetUserInfo(cookies['anon_uid'], cookies['anon_key'], cookies['anon_uid']);
+
+          setInfo(info);
+          console.log(error);
+          console.log("info", info);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setRequestGetAnonUserInfo(false);
+        }
+      }
+
+    }
+    getAnonUserInfo();
+  }, [requestGetAnonUserInfo]);
+
+  //WHEN TO TRIGGER GETTING USER INFO ==============================================================================
+  //effect hook that gets user info when the page is first loaded
+  useEffect(() => {
+    setRequestGetUserInfo(true);
+  }, [])
+
+  //function that also triggers getting user info (for manual refresh)
+  function triggerGetUserInfo() {
+    setRequestGetUserInfo(true);
+  }
+
+  //function that also triggers getting user info (for manual refresh)
+  function triggerGetAnonUserInfo() {
+    setRequestGetAnonUserInfo(true);
+  }
 
 
   const suggested_users = [] //Get from the backend and fill it here
@@ -90,11 +149,11 @@ function App() {
     // wrapping the app component in a CookiesProvider allows cookies to be visible within the whole component
     <CookiesProvider>
       <div className="header-container">
-        <Header info={info} />
+        <Header info={info} triggerGetUserInfo={triggerGetUserInfo} triggerGetAnonUserInfo={triggerGetAnonUserInfo}/>
       </div>
       <div className="App">
         {/* prop drilling; change whichCookies to a context later */}
-        <PageCtrl info={info} whichCookies={whichCookies}/>
+        <PageCtrl info={info} whichCookies={whichCookies} triggerGetUserInfo={triggerGetUserInfo} />
       </div>
       <div className='header-container browse-container'>
         <Browse />

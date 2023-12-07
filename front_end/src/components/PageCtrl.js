@@ -29,7 +29,8 @@ function PageCtrl(props) {
     <>
       <PageHTML info={props.info}
         page={page} changePage={changePage}
-        whichCookies={props.whichCookies}/>
+        whichCookies={props.whichCookies}
+        triggerGetUserInfo={props.triggerGetUserInfo}/>
     </>
   )
 }

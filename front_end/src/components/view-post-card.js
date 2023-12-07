@@ -1,8 +1,11 @@
 import '../static/css/post-card.css';
-import heart from '../static/images/heart.png';
 import brokenHeart from '../static/images/broken-heart.png';
 import biden from '../static/images/biden-pfp.jpg';
 import { useState } from "react";
+import { useCookies } from 'react-cookie';
+import FollowCtrl from './FollowCtrl';
+import LikeCtrl from './LikeCtrl';
+import DislikeCtrl from './DislikeCtrl';
 
 const Comments = (comment, setComment) => {
     if (comment) {
@@ -39,30 +42,48 @@ const Comments = (comment, setComment) => {
 }
 
 const ViewCard = (props) => {
+    const [cookies, setCookie, removeCookie] = useCookies();
+
     let [commentClick, setCommentClick] = useState(false);
     return (
         <>
             <div className='card'>
                 <div className='card-header'>
-                    <img className='card-pfp-img' src={props.pfp} />
+                    <img className='card-pfp-img' src={props.userContent["avatar"]} />
                     <div className='card-author-container'>
-                        <h4 className='card-author'>{props.author}</h4>
+                        <h4 className='card-author'>{props.userContent["username"]}</h4>
                     </div>
                     <div className="tags">
-                        {props.tags.map((tag) => (
+                        {props.postContent["keywords"].map((tag) => (
                             <div className="tag">
                                 {tag}
                             </div>
                         ))}
                     </div>
-                    <img className="card-pfp-img likes" src={heart} />
-                    <p className="like-count">{props.likes}</p>
-                    <img className="card-pfp-img likes" src={brokenHeart} />
-                    <p className="like-count">{props.dislikes}</p>
+                    {/* the likes button */}
+                    {cookies['loggedIn'] ? <LikeCtrl info={props.info['liked_posts']}
+                                                     target={props.postContent['id']}
+                                                     author={props.postContent['author']}
+                                                     whichCookies={props.whichCookies}
+                                                     triggerGetUserInfo={props.triggerGetUserInfo}
+                                                     triggerGetPostInfo={props.triggerGetPostInfo}/> : null}
+                    {/* label that only shows up for surfers */}
+                    {cookies['loggedIn'] ? "" : "Likes: "}
+                    <p className="like-count">{props.postContent["likes"]}</p>
+                    {/* the dislikes button */}
+                    {cookies['loggedIn'] ? <DislikeCtrl info={props.info['disliked_posts']}
+                                                     target={props.postContent['id']}
+                                                     author={props.postContent['author']}
+                                                     whichCookies={props.whichCookies}
+                                                     triggerGetUserInfo={props.triggerGetUserInfo}
+                                                     triggerGetPostInfo={props.triggerGetPostInfo}/> : null}
+                    {/* label that only shows up for surfers */}
+                    {cookies['loggedIn'] ? "" : "_Dislikes: "}
+                    <p className="like-count">{props.postContent["dislikes"]}</p>
 
                 </div>
                 <div style={{ backgroundColor: props.color }} className='card-body'>
-                    <h3>{props.body}</h3>
+                    {/*<h3>{props.body}</h3>*/}
                     {props.images[0] != null?
                     <div  className='imgs-container'>
                         <div style={{width:"20%", margin:"0"}} className='ad-container '>
@@ -74,14 +95,18 @@ const ViewCard = (props) => {
                         </div>:null}
                     </div>
                     :null}
+                    <h3>{props.postContent["text"]}</h3>
                 </div>
                 <div className='card-header'>
-                    <div className='follow-button-post'>Follow</div>
-                    <div className='follow-button-post'>Block</div>
+                    {cookies["loggedIn"] ? <FollowCtrl info={props.info["following"]} 
+                                                       target={props.postContent["author"]} 
+                                                       whichCookies={props.whichCookies}
+                                                       triggerGetUserInfo={props.triggerGetUserInfo}/> : null}
+                    {cookies["loggedIn"] ? <div className='follow-button-post'>Block</div> : null}
                     <div className='follow-button-post'>Report</div>
-                    <div className='follow-button-post'>Tip</div>
-                    <div>Views: {props.views}</div>
-                    <div>Date: {props.date}</div>
+                    {cookies["loggedIn"] ? <div className='follow-button-post'>Tip</div> : null}
+                    <div>Views: {props.postContent["views"]}</div>
+                    <div>Date: {props.postContent["time_posted"]}</div>
                 </div>
             </div>
             {Comments(commentClick, setCommentClick)}
