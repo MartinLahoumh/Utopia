@@ -31,7 +31,7 @@ function App() {
     }
   }
   //removeAllCookies();
-  console.log("cookies", cookies);
+  //console.log("cookies", cookies);
   //automatically create an anonymous user for the client when the app is first used
   useEffect(() => {
     async function createAnonUser() {
@@ -108,6 +108,7 @@ function App() {
       if (requestGetAnonUserInfo) {
 
         try {
+          //console.log('information:', cookies['anon_uid'], cookies['anon_key'])
           const [info, error] = await dbGetUserInfo(cookies['anon_uid'], cookies['anon_key'], cookies['anon_uid']);
 
           setInfo(info);
@@ -148,7 +149,10 @@ function App() {
     // wrapping the app component in a CookiesProvider allows cookies to be visible within the whole component
     <CookiesProvider>
       <div className="header-container">
-        <Header info={info} triggerGetUserInfo={triggerGetUserInfo} triggerGetAnonUserInfo={triggerGetAnonUserInfo}/>
+        <Header info={info} 
+                triggerGetUserInfo={triggerGetUserInfo} 
+                triggerGetAnonUserInfo={triggerGetAnonUserInfo}
+                whichCookies={whichCookies}/>
       </div>
       <div className="App">
         {/* prop drilling; change whichCookies to a context later */}
