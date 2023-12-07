@@ -24,13 +24,18 @@ function CreateCommentCtrl(props) {
                     const [id, cost, error] = await dbCreateComment(uid, key, body, props.parent);
 
                     //reset the field afterwards, if successful
-                    if (error == null) {
+                    //if successful, clear the fields
+                    if (error == null && cost == 0) {
                         setBody("");
                         alert("Comment created.");
-                        props.triggerGetInitialComments();
+                    } else if (error == null) {
+                        setBody("");
+                        alert(`Comment created, but you paid $${cost}!!! Get owned!!!`);   
                     } else {
                         alert("Error: " + error);
                     }
+
+                    props.triggerGetInitialComments();
                 } catch (error) {
                     console.log(error);
                 } finally {

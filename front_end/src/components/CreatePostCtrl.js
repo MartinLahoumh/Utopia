@@ -39,10 +39,14 @@ const CreatePostCtrl = (props) => {
                     //console.log(id);
 
                     //if successful, clear the fields
-                    if (error == null) {
+                    if (error == null && cost == 0) {
                         setBody("");
                         setTags(["", "", ""]);
                         alert("Post created.");
+                    } else if (error == null) {
+                        setBody("");
+                        setTags(["", "", ""]);
+                        alert(`Post created, but you paid $${cost}!!! Get owned!!!`);   
                     } else {
                         alert("Error: " + error);
                     }
