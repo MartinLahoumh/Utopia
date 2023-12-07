@@ -159,7 +159,7 @@ function App() {
         <PageCtrl info={info} whichCookies={whichCookies} triggerGetUserInfo={triggerGetUserInfo} />
       </div>
       <div className='header-container browse-container'>
-        <Browse />
+        <Browse info={info} whichCookies={whichCookies} triggerGetUserInfo={triggerGetUserInfo}/>
       </div>
     </CookiesProvider>
   );
