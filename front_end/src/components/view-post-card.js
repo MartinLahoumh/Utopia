@@ -66,15 +66,14 @@ const ViewCard = (props) => {
                     {props.images[0] != null?
                     <div  className='imgs-container'>
                         <div style={{width:"20%", margin:"0"}} className='ad-container '>
-                            <img className='ad' src={biden}/>
+                            <img className='ad' src={"http://127.0.0.1:5000"+props.images[0]}/>
                         </div>
                         {props.images[1] != null?
                         <div style={{width:"20%", margin:"0"}} className='ad-container '>
-                            <img className='ad' src={props.images[1]}/>
+                            <img className='ad' src={"http://127.0.0.1:5000"+props.images[1]}/>
                         </div>:null}
                     </div>
                     :null}
-                    
                 </div>
                 <div className='card-header'>
                     <div className='follow-button-post'>Follow</div>

@@ -56,7 +56,7 @@ const CreatePostHTML = (props) => {
                     <br />
                     <div className='ad-img-container'> {/*Where we will place all submitted images of this post */}
                         {/*These are place holders to show you how they will look */}
-                        <img className="ad-img" src={mario}></img>
+                        <img className="ad-img" src={"http://127.0.0.1:5000"+props.images[0]}></img>
                     </div>
                 </>
             )
@@ -116,7 +116,7 @@ const CreatePostHTML = (props) => {
                 so that the image gets saved to the backend side, and we can access it from there. Create an array of string called 'imgArr'.
                 Each element of this should be the img url that we will send to the back end upon uploading.*/}
                 
-                <form action='http://127.0.0.1:5000/media' target="dummyframe">
+                <form >
                     <input style={{opacity:"0%"}}  type="file" name="img" id="img-upload"hidden onChange={getImageFile}/>
                     <label style={{ width: '100%', height: '3.5vh', marginBottom: "10px", display: 'flex', justifyContent: 'center', alignItems: 'center' }} for='img-upload' className="main-button">
                         Upload Media
