@@ -56,6 +56,19 @@ const ViewCard = (props) => {
                 </div>
                 <div style={{ backgroundColor: props.color }} className='card-body'>
                     <h3>{props.postContent["text"]}</h3>
+                    {console.log(props.postContent["images"])}
+                    {props.postContent["images"][0] != ""?
+                    <div  className='imgs-container'>
+                        <div style={{width:"20%", margin:"0"}} className='ad-container '>
+                            <img className='ad' src={"http://127.0.0.1:5000"+props.postContent["images"][0]}/>
+                        </div>
+                        {props.postContent["images"][1] != ""?
+                        <div style={{width:"20%", margin:"0"}} className='ad-container '>
+                            <img className='ad' src={"http://127.0.0.1:5000"+props.postContent["images"][1]}/>
+                        </div>:null}
+                    </div>
+                    :null}
+                    
                 </div>
                 <div className='card-header'>
                     {cookies["loggedIn"] ? <FollowCtrl info={props.info["following"]} 

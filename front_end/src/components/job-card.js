@@ -14,9 +14,8 @@ const JobCard = (props)=> {
             </div>
             <div style={{backgroundColor: props.color}} className='card-body job-card-body'>
                 <ul>
-                    {props.requirements.map((req) =>(
-                        <li>{req}</li>
-                    ))}
+                    <li>{props.req1}</li>
+                    <li>{props.req2}</li>
                 </ul>
                 <button className='main-button'>Apply</button>
             </div>

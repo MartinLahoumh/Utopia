@@ -104,7 +104,12 @@ const PostCard = (props)=> {
                 Upon a user picking their image to upload, you will need to connect it to an image endpoint in the back end
                 so that the image gets saved to the backend side, and we can access it from there. Create an array of string called 'imgArr'.
                 Each element of this should be the img url that we will send to the back end upon uploading.*/}
-                <input style={{opacity:"0%"}} onChange={props.handlePfpChange} type="file" name="img" id="img-upload"hidden/>
+                <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+                <form action='http://127.0.0.1:5000/media' target="dummyframe">
+                    <input style={{opacity:"0%"}} onChange="form.submit()" type="file" name="img" id="img-upload"hidden/>
+                    <button type='submit'>submit</button>
+                </form>
+                
                 <label style={{width:'20%',height:'3.5vh',marginBottom:"10px", display:'flex', justifyContent:'center', alignItems:'center'}} for='img-upload' className="main-button">
                     Upload Media
                 </label>

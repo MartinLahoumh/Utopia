@@ -12,13 +12,13 @@ function PageHTML(props) {
 
     let pageContent = <></>;
     if (props.page == 'ForYou') {
-        pageContent = <ForYouCtrl info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>
+        pageContent = <ForYouCtrl searchItem={props.searchItem} info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>
     }
     else if (props.page == "Following") {
         pageContent = <FollowingPostsCtrl info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>;
     }
     else if (props.page == 'Jobs') {
-        pageContent = <JobsCtrl />
+        pageContent = <JobsCtrl whichCookies={props.whichCookies}/>
     } else if (props.page == 'Trending') {
         pageContent = <TrendingPostCtrl info={props.info} whichCookies={props.whichCookies} triggerGetUserInfo={props.triggerGetUserInfo}/>
     }

@@ -30,7 +30,7 @@ function PageCtrl(props) {
 
   return (
     <>
-      <PageHTML info={props.info}
+      <PageHTML searchActive={props.searchActive} searchItem={props.searchItem} info={props.info}
         page={page} changePage={changePage}
         whichCookies={props.whichCookies}
         triggerGetUserInfo={props.triggerGetUserInfo}/>

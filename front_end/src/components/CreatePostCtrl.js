@@ -22,6 +22,8 @@ const CreatePostCtrl = (props) => {
     let [tags, setTags] = useState(["", "", ""]);
     let [body, setBody] = useState("");
     let [postType, setPostType] = useState("POST"); //Making a regular post, or an ad, or a job
+    let [images, setImages] = useState(["", ""]);
+    
     //state to trigger data request
     let [requestSendPost, setRequestSendPost] = useState(false);
 
@@ -35,17 +37,19 @@ const CreatePostCtrl = (props) => {
 
                 try {
                     //make the post
-                    const [id, cost, error] = await dbCreatePost(uid, key, body, tags, postType);
+                    const [id, cost, error] = await dbCreatePost(uid, key, body, tags, postType, images);
                     //console.log(id);
 
                     //if successful, clear the fields
                     if (error == null && cost == 0) {
                         setBody("");
                         setTags(["", "", ""]);
+                        setImages(["", ""]);
                         alert("Post created.");
                     } else if (error == null) {
                         setBody("");
                         setTags(["", "", ""]);
+                        setImages(["", ""]);
                         alert(`Post created, but you paid $${cost}!!! Get owned!!!`);   
                     } else {
                         alert("Error: " + error);
@@ -78,6 +82,21 @@ const CreatePostCtrl = (props) => {
         setTags(newTags);
     }
 
+    const handleImageChange = (value)=>{
+        let newImages = [...images];
+        if(images[0] == ""){
+            newImages[0] = value;
+        }
+        else if(images[1] == ""){
+        newImages[1] = value;
+        }
+        else{
+        alert("YOU HAVE TO MANY IMAGES, CAN NOT BE UPLOADED!!");
+        }
+        console.log(newImages);
+        setImages(newImages);
+    }
+
     //FUNCTIONS THAT UPDATE VALUES =======================================================================
     function handleBodyChange(e) {
         setBody(e.target.value);
@@ -99,6 +118,7 @@ const CreatePostCtrl = (props) => {
             <CreatePostHTML postType={postType} handlePostTypeChange={handlePostTypeChange}
                 body={body} handleBodyChange={handleBodyChange}
                 tags={tags} handleTagChange={handleTagChange}
+                            images={images} handleImageChange={handleImageChange}
                 info={props.info}
                 color={props.color}
                 triggerSendPost={triggerSendPost} />
